@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OlehNusa — Platform Oleh-Oleh Nusantara</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --terra: #C8552A;
+  --terra-dark: #9E3D18;
+  --terra-light: #E8835A;
+  --gold: #D4A437;
+  --gold-light: #F0C860;
+  --cream: #FDF6EC;
+  --cream-dark: #F2E8D5;
+  --brown: #4A2C0A;
+  --brown-mid: #7A4F1E;
+  --green: #2D6A4F;
+  --green-light: #52B788;
+  --white: #FEFEFE;
+  --text-dark: #1A0F00;
+  --text-mid: #5C3D1A;
+  --text-light: #9C7A52;
+  --border: #E8D5B5;
+  --shadow: rgba(74,44,10,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ===== SIDEBAR NAV ===== */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: 260px; height: 100vh;
+  background: var(--brown);
+  z-index: 100;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 20px var(--shadow);
+}
+
+.sidebar-logo {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--gold-light);
+  letter-spacing: -0.5px;
+}
+
+.logo-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav-section {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-section-title {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  padding: 8px 24px 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: var(--gold-light);
+  background: rgba(255,255,255,0.06);
+  border-left-color: var(--gold);
+}
+
+.nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-left: 260px;
+  min-height: 100vh;
+}
+
+/* ===== PAGES ===== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ===== HEADER BANNER ===== */
+.page-header {
+  background: linear-gradient(135deg, var(--brown) 0%, var(--terra-dark) 50%, var(--brown-mid) 100%);
+  padding: 52px 60px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.page-header-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--gold-light);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.page-header p {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.page-content {
+  padding: 48px 60px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(74,44,10,0.06);
+}
+
+.card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--terra-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brown);
+  margin: 18px 0 8px;
+}
+
+.card p, .card li {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+
+.card ul, .card ol {
+  padding-left: 20px;
+}
+
+.card li { margin-bottom: 6px; }
+
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.mini-card {
+  background: var(--cream);
+  border: 1px solid var(--cream-dark);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.mini-card-icon { font-size: 28px; margin-bottom: 10px; }
+.mini-card h4 { font-size: 14px; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
+.mini-card p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+
+/* ===== BADGES & TAGS ===== */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-terra { background: #FDE8DF; color: var(--terra-dark); }
+.badge-gold { background: #FDF0D0; color: #8A6200; }
+.badge-green { background: #D8F0E5; color: var(--green); }
+.badge-brown { background: #EDE0D0; color: var(--brown); }
+
+/* ===== TABLE ===== */
+.table-wrap { overflow-x: auto; margin: 16px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--brown);
+  color: var(--gold-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+}
+td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-mid);
+  vertical-align: top;
+}
+tr:hover td { background: var(--cream); }
+
+/* ===== SWOT ===== */
+.swot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.swot-box {
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+.swot-box h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.swot-box ul { padding-left: 16px; }
+.swot-box li { font-size: 13px; line-height: 1.7; margin-bottom: 4px; }
+.swot-s { background: #D8F0E5; }
+.swot-s h4 { color: #1A5C3A; }
+.swot-w { background: #FDE8DF; }
+.swot-w h4 { color: #8A2500; }
+.swot-o { background: #FDF0D0; }
+.swot-o h4 { color: #6A4800; }
+.swot-t { background: #EDE0D0; }
+.swot-t h4 { color: #4A2000; }
+
+/* ===== TIMELINE ===== */
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--terra), var(--gold));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+.timeline-dot {
+  position: absolute;
+  left: -33px; top: 4px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--terra);
+  border: 3px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--terra);
+}
+.timeline-phase {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 4px;
+}
+.timeline-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+.timeline-item p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+
+/* ===== COLOR PALETTE ===== */
+.palette {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.swatch {
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.swatch-color { height: 64px; }
+.swatch-info { padding: 8px 10px; background: var(--white); border: 1px solid var(--border); border-top: none; }
+.swatch-name { font-size: 11px; font-weight: 700; color: var(--brown); }
+.swatch-hex { font-size: 10px; color: var(--text-light); font-family: monospace; }
+
+/* ===== WIREFRAME SECTION ===== */
+.wireframe-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.wf-tab {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.wf-tab:hover, .wf-tab.active {
+  background: var(--terra);
+  border-color: var(--terra);
+  color: var(--white);
+}
+
+.wireframe { display: none; }
+.wireframe.active { display: block; }
+
+/* === WIREFRAME SCREENS === */
+.wf-screen {
+  background: #F5F5F5;
+  border: 2px solid #DDD;
+  border-radius: 24px;
+  overflow: hidden;
+  max-width: 420px;
+  margin: 0 auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.wf-statusbar {
+  background: var(--brown);
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+}
+
+.wf-body {
+  background: var(--cream);
+  min-height: 700px;
+  overflow: hidden;
+}
+
+/* LOGIN */
+.wf-login {
+  background: linear-gradient(160deg, var(--brown) 0%, var(--terra-dark) 100%);
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 28px 30px;
+}
+
+.wf-logo-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--gold-light);
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+
+.wf-logo-tagline {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.wf-batik-ornament {
+  width: 80px; height: 80px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+.wf-login-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+}
+
+.wf-login-card h3 {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.wf-input-group { margin-bottom: 14px; }
+.wf-input-group label {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.wf-input {
+  width: 100%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--white);
+  font-size: 13px;
+}
+
+.wf-btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--terra) 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+.wf-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+.wf-divider span { font-size: 11px; color: rgba(255,255,255,0.4); }
+.wf-divider::before, .wf-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+}
+
+.wf-socials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.wf-social-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+
+.wf-register-link {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 14px;
+}
+.wf-register-link span { color: var(--gold-light); font-weight: 600; cursor: pointer; }
+
+/* HOME */
+.wf-navbar {
+  background: var(--white);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.wf-nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: var(--terra-dark); }
+.wf-nav-icons { display: flex; gap: 14px; font-size: 18px; }
+
+.wf-search-bar {
+  margin: 14px 16px;
+  background: var(--cream-dark);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wf-banner {
+  margin: 0 16px 16px;
+  background: linear-gradient(135deg, var(--brown) 0%, var(--terra) 100%);
+  border-radius: 16px;
+  padding: 22px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.wf-banner::after {
+  content: '🏝️';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 50px;
+  opacity: 0.4;
+}
+.wf-banner-badge {
+  background: var(--gold);
+  color: var(--brown);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.wf-banner h3 { color: var(--white); font-size: 16px; font-weight: 800; line-height: 1.3; margin-bottom: 6px; }
+.wf-banner p { color: rgba(255,255,255,0.7); font-size: 11px; margin-bottom: 12px; }
+.wf-banner-btn {
+  background: var(--gold);
+  color: var(--brown);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.wf-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 10px;
+}
+.wf-section-title { font-size: 14px; font-weight: 800; color: var(--brown); }
+.wf-see-all { font-size: 11px; color: var(--terra); font-weight: 600; }
+
+.wf-categories {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.wf-cat-chip {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brown);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.wf-cat-chip.selected {
+  background: var(--terra);
+  border-color: var(--terra);
+  color: var(--white);
+}
+
+.wf-products {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 16px;
+  margin-bottom: 12px;
+}
+.wf-product-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.wf-product-img {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+.wf-product-body { padding: 10px 12px; }
+.wf-product-origin {
+  font-size: 9px;
+  color: var(--terra);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.wf-product-name { font-size: 12px; font-weight: 700; color: var(--brown); margin-bottom: 4px; line-height: 1.3; }
+.wf-product-price { font-size: 13px; font-weight: 800; color: var(--terra-dark); }
+.wf-product-rating { font-size: 10px; color: var(--gold); margin-bottom: 2px; }
+
+.wf-bottomnav {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding: 10px 0;
+}
+.wf-bnav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  color: var(--text-light);
+  cursor: pointer;
+}
+.wf-bnav-item.active { color: var(--terra); }
+.wf-bnav-item .ico { font-size: 20px; }
+
+/* PRODUCT DETAIL */
+.wf-product-hero {
+  background: linear-gradient(135deg, var(--cream-dark), var(--cream));
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  position: relative;
+}
+.wf-back-btn {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: rgba(255,255,255,0.9);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.wf-wishlist-btn {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(255,255,255,0.9);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.wf-product-detail-body { padding: 20px 16px; }
+.wf-product-detail-origin {
+  font-size: 10px;
+  color: var(--terra);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.wf-product-detail-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.wf-product-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.wf-stars { font-size: 13px; color: var(--gold); }
+.wf-review-count { font-size: 11px; color: var(--text-light); }
+.wf-sold-count { font-size: 11px; color: var(--text-light); }
+.wf-product-detail-price {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--terra-dark);
+  margin-bottom: 4px;
+}
+.wf-product-detail-priceper { font-size: 11px; color: var(--text-light); margin-bottom: 16px; }
+
+.wf-section-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+.wf-desc-title { font-size: 13px; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
+.wf-desc-text { font-size: 12px; color: var(--text-light); line-height: 1.7; margin-bottom: 14px; }
+
+.wf-info-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.wf-info-chip {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brown);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.wf-add-cart-bar {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+}
+.wf-qty-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cream-dark);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+.wf-qty-btn { font-size: 16px; font-weight: 700; color: var(--terra); cursor: pointer; }
+.wf-qty-num { font-size: 14px; font-weight: 700; color: var(--brown); min-width: 20px; text-align: center; }
+.wf-cart-btn {
+  flex: 1;
+  background: var(--terra);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.wf-buy-btn {
+  flex: 1;
+  background: var(--brown);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* CART */
+.wf-cart-header {
+  background: var(--white);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.wf-cart-title { font-size: 16px; font-weight: 800; color: var(--brown); }
+.wf-cart-list { padding: 14px 16px; }
+.wf-cart-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.wf-cart-img {
+  width: 64px; height: 64px;
+  background: var(--cream-dark);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.wf-cart-info { flex: 1; }
+.wf-cart-item-origin { font-size: 9px; color: var(--terra); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.wf-cart-item-name { font-size: 13px; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
+.wf-cart-item-price { font-size: 14px; font-weight: 800; color: var(--terra-dark); }
+.wf-cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.wf-cart-bottom {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 16px;
+}
+.wf-cart-summary { margin-bottom: 14px; }
+.wf-cart-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: var(--text-mid);
+}
+.wf-cart-row.total {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--brown);
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+.wf-checkout-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--terra), var(--terra-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+/* PAYMENT */
+.wf-payment-header {
+  background: var(--white);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.wf-payment-body { padding: 14px 16px; }
+.wf-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin: 14px 0 8px;
+}
+.wf-address-box {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.wf-address-name { font-size: 13px; font-weight: 700; color: var(--brown); }
+.wf-address-phone { font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
+.wf-address-text { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+
+.wf-payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.wf-pay-method {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.wf-pay-method.selected { border-color: var(--terra); background: #FDE8DF; }
+.wf-pay-icon { font-size: 24px; }
+.wf-pay-info { flex: 1; }
+.wf-pay-name { font-size: 13px; font-weight: 700; color: var(--brown); }
+.wf-pay-sub { font-size: 11px; color: var(--text-light); }
+.wf-pay-radio {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wf-pay-method.selected .wf-pay-radio {
+  border-color: var(--terra);
+  background: var(--terra);
+}
+.wf-pay-method.selected .wf-pay-radio::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.wf-pay-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--terra), var(--terra-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+/* ===== FLOWCHART ===== */
+.flowchart-container {
+  overflow-x: auto;
+  padding: 10px 0;
+}
+.flowchart-svg-wrap svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== TECH STACK GRID ===== */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+.tech-item {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.tech-item-icon { font-size: 28px; margin-bottom: 8px; }
+.tech-item-name { font-size: 13px; font-weight: 700; color: var(--brown); margin-bottom: 3px; }
+.tech-item-role { font-size: 11px; color: var(--text-light); }
+
+/* ===== COST TABLE ===== */
+.cost-total {
+  background: var(--brown);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 18px 24px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cost-total-label { font-size: 14px; font-weight: 600; }
+.cost-total-value { font-size: 22px; font-weight: 900; color: var(--gold-light); }
+
+/* ===== FEATURE LIST ===== */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.feature-item {
+  background: var(--cream);
+  border-left: 4px solid var(--terra);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 18px;
+}
+.feature-item h4 { font-size: 14px; font-weight: 700; color: var(--brown); margin-bottom: 5px; }
+.feature-item p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* ===== ARCHITECTURE ===== */
+.arch-layer {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.arch-layer-name {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.arch-components { display: flex; flex-wrap: wrap; gap: 8px; }
+.arch-comp {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+/* ===== PRODUCT RECOMMENDATION ===== */
+.product-category-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.product-cat-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.product-cat-icon { font-size: 28px; }
+.product-cat-name { font-size: 16px; font-weight: 800; color: var(--brown); }
+.product-cat-origin { font-size: 11px; color: var(--text-light); }
+.product-cat-body { padding: 0 20px 16px; }
+.product-cat-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.product-tag {
+  background: var(--cream-dark);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brown-mid);
+}
+
+/* ===== SCROLL STYLE ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream-dark); }
+::-webkit-scrollbar-thumb { background: var(--terra-light); border-radius: 3px; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .sidebar { width: 220px; }
+  .main { margin-left: 220px; }
+  .page-content { padding: 32px 28px; }
+  .page-header { padding: 36px 28px 28px; }
+  .page-header h1 { font-size: 28px; }
+}
+
+@media (max-width: 640px) {
+  .sidebar { transform: translateX(-100%); }
+  .main { margin-left: 0; }
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(200,85,42,0.08), rgba(212,164,55,0.08));
+  border: 1.5px solid rgba(200,85,42,0.2);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 14px 0;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  background: var(--terra);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.section-divider-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0 20px;
+}
+.section-divider-text span {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--brown);
+  white-space: nowrap;
+}
+.section-divider-text::before, .section-divider-text::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, var(--border));
+}
+.section-divider-text::before {
+  background: linear-gradient(to left, transparent, var(--border));
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">🏝️ OlehNusa</div>
+    <div class="logo-sub">Oleh-oleh Nusantara</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Profil Usaha</div>
+    <div class="nav-item active" onclick="showPage('latar')"><span class="icon">📋</span> Latar Belakang</div>
+    <div class="nav-item" onclick="showPage('visi')"><span class="icon">🎯</span> Visi & Misi</div>
+    <div class="nav-item" onclick="showPage('analisis')"><span class="icon">🔍</span> Analisis Masalah</div>
+    <div class="nav-item" onclick="showPage('swot')"><span class="icon">📊</span> Analisis SWOT</div>
+    <div class="nav-item" onclick="showPage('target')"><span class="icon">👥</span> Target Pengguna</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Produk & Layanan</div>
+    <div class="nav-item" onclick="showPage('produk')"><span class="icon">🛍️</span> Rekomendasi Produk</div>
+    <div class="nav-item" onclick="showPage('fitur')"><span class="icon">⚙️</span> Fitur Toko Online</div>
+    <div class="nav-item" onclick="showPage('layanan')"><span class="icon">💬</span> Layanan Pelanggan</div>
+    <div class="nav-item" onclick="showPage('pengiriman')"><span class="icon">🚚</span> Pengiriman</div>
+    <div class="nav-item" onclick="showPage('payment')"><span class="icon">💳</span> Payment Gateway</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Desain & Teknis</div>
+    <div class="nav-item" onclick="showPage('desain')"><span class="icon">🎨</span> Desain UI/UX & Warna</div>
+    <div class="nav-item" onclick="showPage('wireframe')"><span class="icon">📱</span> Wireframe & Prototype</div>
+    <div class="nav-item" onclick="showPage('arsitektur')"><span class="icon">🏗️</span> Arsitektur Sistem</div>
+    <div class="nav-item" onclick="showPage('techstack')"><span class="icon">💻</span> Tech Stack</div>
+    <div class="nav-item" onclick="showPage('flowchart')"><span class="icon">🔄</span> Flowchart</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Bisnis & Operasional</div>
+    <div class="nav-item" onclick="showPage('iklan')"><span class="icon">📣</span> Strategi Periklanan</div>
+    <div class="nav-item" onclick="showPage('tools')"><span class="icon">🛠️</span> Tools Operasional</div>
+    <div class="nav-item" onclick="showPage('legalitas')"><span class="icon">⚖️</span> Legalitas Usaha</div>
+    <div class="nav-item" onclick="showPage('timeline')"><span class="icon">📅</span> Timeline & Biaya</div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== PAGE: LATAR BELAKANG ===== -->
+<div class="page active" id="page-latar">
+  <div class="page-header">
+    <div class="page-header-badge">📋 Latar Belakang</div>
+    <h1>OlehNusa<br>Toko Oleh-Oleh Nusantara</h1>
+    <p>Platform digital yang menghadirkan cita rasa dan kekayaan kuliner tradisional dari seluruh penjuru Nusantara ke tangan Anda.</p>
+  </div>
+  <div class="page-content">
+
+    <div class="card">
+      <h2>🌏 Latar Belakang Pendirian</h2>
+      <p>Indonesia merupakan negara kepulauan terbesar di dunia dengan lebih dari 17.000 pulau, 34 provinsi, dan ratusan suku bangsa. Kekayaan budaya ini melahirkan ragam kuliner khas daerah yang unik dan tak ternilai — mulai dari kue kering lebaran, makanan tradisional, hingga oleh-oleh khas yang menjadi identitas suatu daerah.</p>
+      <h3>Permasalahan yang Dihadapi</h3>
+      <p>Sayangnya, banyak produk oleh-oleh khas daerah masih sulit dijangkau oleh masyarakat luar daerah tersebut. UMKM pembuat oleh-oleh tradisional sering kali hanya mengandalkan penjualan di pasar lokal atau toko fisik, sehingga jangkauannya sangat terbatas. Di sisi lain, masyarakat perkotaan atau wisatawan yang ingin menikmati atau mengirimkan oleh-oleh khas daerah tertentu sering menghadapi kendala jarak dan keterbatasan informasi.</p>
+      <h3>Solusi: OlehNusa</h3>
+      <p>OlehNusa hadir sebagai jembatan digital antara pengrajin/produsen oleh-oleh khas daerah dengan konsumen di seluruh Indonesia. Nama <strong>"OlehNusa"</strong> merupakan gabungan dari kata <em>oleh-oleh</em> (tradisi membawa buah tangan khas suatu tempat) dan <em>Nusantara</em> (sebutan klasik untuk kepulauan Indonesia), mencerminkan misi kami untuk mempersatukan kekayaan kuliner seluruh nusantara dalam satu platform.</p>
+    </div>
+
+    <div class="card-row">
+      <div class="mini-card">
+        <div class="mini-card-icon">📈</div>
+        <h4>Potensi Pasar Besar</h4>
+        <p>Pasar kuliner Indonesia senilai >Rp 500 triliun/tahun. E-commerce kuliner tumbuh 25% per tahun pasca pandemi.</p>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-icon">🤝</div>
+        <h4>Pemberdayaan UMKM</h4>
+        <p>Lebih dari 64 juta UMKM di Indonesia, mayoritas di sektor makanan-minuman yang masih belum terdigitalisasi sepenuhnya.</p>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-icon">🏛️</div>
+        <h4>Pelestarian Budaya</h4>
+        <p>Mendokumentasikan dan mempromosikan kuliner tradisional yang terancam terlupakan oleh generasi muda.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎯 Tujuan OlehNusa</h2>
+      <ol>
+        <li><strong>Mempertemukan</strong> produsen oleh-oleh khas daerah dengan konsumen secara nasional melalui platform digital yang mudah digunakan.</li>
+        <li><strong>Meningkatkan pendapatan</strong> UMKM dan pengrajin makanan tradisional dengan memperluas jangkauan pasar.</li>
+        <li><strong>Melestarikan</strong> kuliner tradisional Indonesia dengan mendokumentasikan sejarah, cara pembuatan, dan nilai budaya setiap produk.</li>
+        <li><strong>Memudahkan konsumen</strong> mendapatkan oleh-oleh otentik khas daerah tanpa perlu bepergian ke lokasi tersebut.</li>
+        <li><strong>Mendorong pertumbuhan ekonomi</strong> daerah melalui digitalisasi industri kuliner lokal.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>💡 Manfaat OlehNusa</h2>
+      <div class="card-row">
+        <div>
+          <h3>Bagi Konsumen</h3>
+          <ul>
+            <li>Akses mudah ke ratusan produk oleh-oleh dari seluruh Indonesia</li>
+            <li>Informasi lengkap tentang asal usul dan keautentikan produk</li>
+            <li>Kemudahan pemesanan, pembayaran, dan pengiriman</li>
+            <li>Jaminan kualitas dan keaslian produk</li>
+            <li>Harga transparan dan bersaing</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Bagi Produsen/UMKM</h3>
+          <ul>
+            <li>Jangkauan pasar yang lebih luas secara nasional</li>
+            <li>Fasilitas lapak digital gratis atau berbiaya rendah</li>
+            <li>Sistem manajemen stok dan pesanan terintegrasi</li>
+            <li>Akses ke data penjualan dan analitik</li>
+            <li>Dukungan logistik dan pengiriman</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Bagi Daerah</h3>
+          <ul>
+            <li>Promosi wisata kuliner daerah secara digital</li>
+            <li>Peningkatan PAD melalui pertumbuhan UMKM</li>
+            <li>Pengakuan produk unggulan daerah secara nasional</li>
+            <li>Digitalisasi ekonomi kreatif lokal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📐 Ruang Lingkup</h2>
+      <p>OlehNusa beroperasi dalam ruang lingkup berikut:</p>
+      <ul style="margin-top:10px">
+        <li><strong>Geografis:</strong> Nasional — menjangkau seluruh 34 provinsi Indonesia sebagai area pemasaran dan pengiriman</li>
+        <li><strong>Kategori Produk:</strong> Makanan kering (kue kering, keripik, kerupuk), makanan basah (kue tradisional, jajanan pasar), makanan kemasan (sambel, bumbu, rendang kaleng), minuman tradisional, dan souvenir kuliner</li>
+        <li><strong>Model Bisnis:</strong> B2C (bisnis ke konsumen akhir) dan B2B (bisnis ke bisnis, termasuk kantor, hotel, reseller)</li>
+        <li><strong>Platform:</strong> Web dan aplikasi mobile (iOS & Android)</li>
+        <li><strong>Sumber Produk:</strong> Produksi sendiri (private label), reseller UMKM lokal, dan kemitraan dengan produsen terpilih</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAGE: VISI & MISI ===== -->
+<div class="page" id="page-visi">
+  <div class="page-header">
+    <div class="page-header-badge">🎯 Visi & Misi</div>
+    <h1>Arah & Tujuan<br>Jangka Panjang</h1>
+    <p>Landasan filosofis dan strategis yang mengarahkan setiap langkah OlehNusa dalam melayani dan berkembang.</p>
+  </div>
+  <div class="page-content">
+
+    <div class="card">
+      <h2>🌟 Visi</h2>
+      <div class="highlight-box" style="font-family:'Playfair Display',serif; font-size:20px; color:var(--brown); text-align:center; padding:28px; font-style:italic; line-height:1.5">
+        "Menjadi platform terdepan dan terpercaya yang menghubungkan kekayaan kuliner tradisional Nusantara dengan lidah dan hati masyarakat Indonesia serta dunia, demi melestarikan warisan budaya dan mensejahterakan pelaku UMKM lokal."
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Misi</h2>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div class="step-number">1</div>
+          <div><strong>Digitalisasi UMKM Kuliner:</strong><br><span style="font-size:13px;color:var(--text-light)">Memfasilitasi onboarding dan digitalisasi produsen makanan tradisional dan UMKM kuliner daerah ke platform OlehNusa secara mudah dan terjangkau.</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div class="step-number">2</div>
+          <div><strong>Kurasi Produk Berkualitas:</strong><br><span style="font-size:13px;color:var(--text-light)">Menjamin kualitas, keaslian, dan keamanan pangan setiap produk melalui proses seleksi dan verifikasi ketat sebelum ditampilkan di platform.</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div class="step-number">3</div>
+          <div><strong>Pengalaman Belanja Bercerita:</strong><br><span style="font-size:13px;color:var(--text-light)">Menghadirkan pengalaman belanja yang lebih dari sekadar transaksi — dengan kisah di balik produk, budaya daerah asal, dan nilai-nilai tradisi yang menyertainya.</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div class="step-number">4</div>
+          <div><strong>Logistik Andal & Tepat Waktu:</strong><br><span style="font-size:13px;color:var(--text-light)">Membangun sistem logistik yang menjamin produk sampai dalam kondisi segar dan aman ke seluruh penjuru Indonesia.</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div class="step-number">5</div>
+          <div><strong>Ekosistem yang Mensejahterakan:</strong><br><span style="font-size:13px;color:var(--text-light)">Menciptakan ekosistem bisnis yang adil dan menguntungkan bagi semua pihak — konsumen, produsen, mitra logistik, dan OlehNusa sendiri.</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div class="step-number">6</div>
+          <div><strong>Inovasi Berkelanjutan:</strong><br><span style="font-size:13px;color:var(--text-light)">Terus berinovasi dalam teknologi, kurasi produk, dan layanan pelanggan untuk memenuhi kebutuhan konsumen yang terus berkembang.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💎 Nilai-Nilai OlehNusa</h2>
+      <div class="card-row">
+        <div class="mini-card">
+          <div class="mini-card-icon">🤝</div>
+          <h4>Kepercayaan (Amanah)</h4>
+          <p>Setiap produk dijamin keaslian dan kualitasnya. Transparansi dalam setiap proses bisnis.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🌿</div>
+          <h4>Keaslian (Otentik)</h4>
+          <p>Menjaga orisinalitas resep dan proses pembuatan makanan tradisional dari masing-masing daerah.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🤲</div>
+          <h4>Kepedulian (Gotong Royong)</h4>
+          <p>Bersama memajukan UMKM lokal dan melestarikan warisan kuliner Nusantara untuk generasi mendatang.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">✨</div>
+          <h4>Inovasi (Maju)</h4>
+          <p>Memadukan tradisi dengan teknologi modern untuk menciptakan pengalaman belanja yang luar biasa.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAGE: ANALISIS MASALAH ===== -->
+<div class="page" id="page-analisis">
+  <div class="page-header">
+    <div class="page-header-badge">🔍 Analisis Masalah</div>
+    <h1>Identifikasi<br>Masalah & Solusi</h1>
+    <p>Pemetaan masalah yang dihadapi ekosistem oleh-oleh tradisional dan bagaimana OlehNusa menjawabnya.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>⚠️ Masalah yang Diidentifikasi</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Masalah</th><th>Pihak Terdampak</th><th>Dampak</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Jangkauan distribusi terbatas pada area lokal saja</td><td>Produsen UMKM</td><td>Pendapatan stagnan, potensi tidak tergarap</td></tr>
+            <tr><td>2</td><td>Konsumen luar daerah sulit menemukan produk khas daerah tertentu</td><td>Konsumen</td><td>Keinginan tidak terpenuhi, potensi pasar terbuang</td></tr>
+            <tr><td>3</td><td>Minimnya dokumentasi dan informasi tentang produk tradisional</td><td>Keduanya</td><td>Hilangnya nilai budaya, kepercayaan rendah</td></tr>
+            <tr><td>4</td><td>Kualitas produk tidak konsisten antar pembuat</td><td>Konsumen</td><td>Ketidakpuasan, rendahnya kepercayaan ulang</td></tr>
+            <tr><td>5</td><td>Tidak ada jaminan kesegaran produk makanan saat pengiriman</td><td>Konsumen</td><td>Kerusakan produk, klaim, kerugian</td></tr>
+            <tr><td>6</td><td>UMKM kesulitan mengelola pesanan dan stok secara digital</td><td>Produsen UMKM</td><td>Kesalahan pesanan, stok habis tak terduga</td></tr>
+            <tr><td>7</td><td>Tidak ada platform khusus oleh-oleh Indonesia</td><td>Ekosistem</td><td>Kompetisi tidak sehat dengan e-commerce umum</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>✅ Solusi OlehNusa</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <h4>🗺️ Platform Nasional</h4>
+          <p>Marketplace khusus oleh-oleh yang menjangkau seluruh Indonesia dengan dukungan logistik terintegrasi.</p>
+        </div>
+        <div class="feature-item">
+          <h4>📖 Produk Bercerita</h4>
+          <p>Setiap produk dilengkapi kisah asal-usul, cara pembuatan, dan nilai budaya daerahnya.</p>
+        </div>
+        <div class="feature-item">
+          <h4>✅ Kurasi Ketat</h4>
+          <p>Proses seleksi dan verifikasi produk memastikan kualitas dan keaslian sebelum tayang.</p>
+        </div>
+        <div class="feature-item">
+          <h4>❄️ Pengiriman Khusus</h4>
+          <p>Kerjasama dengan jasa logistik yang memiliki layanan pengiriman makanan dengan kemasan insulated.</p>
+        </div>
+        <div class="feature-item">
+          <h4>📊 Dashboard UMKM</h4>
+          <p>Sistem manajemen stok, pesanan, dan analitik lengkap untuk memudahkan operasional UMKM.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🎯 Niche Market</h4>
+          <p>Fokus pada segmen oleh-oleh tradisional memberi keunggulan kompetitif yang jelas vs e-commerce umum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: SWOT ===== -->
+<div class="page" id="page-swot">
+  <div class="page-header">
+    <div class="page-header-badge">📊 Analisis SWOT</div>
+    <h1>Kekuatan, Kelemahan,<br>Peluang & Ancaman</h1>
+    <p>Evaluasi komprehensif posisi strategis OlehNusa di pasar.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🔲 Matriks SWOT OlehNusa</h2>
+      <div class="swot-grid">
+        <div class="swot-box swot-s">
+          <h4>💪 Strengths (Kekuatan)</h4>
+          <ul>
+            <li>Niche market yang jelas dan terfokus</li>
+            <li>Nilai budaya dan emosional produk yang kuat</li>
+            <li>Diferensiasi dari e-commerce umum</li>
+            <li>Produk-produk unik yang sulit ditemukan di tempat lain</li>
+            <li>Narasi cerita di balik produk meningkatkan nilai jual</li>
+            <li>Loyalitas konsumen yang tinggi pada produk tradisional</li>
+            <li>Mendukung gerakan UMKM lokal</li>
+          </ul>
+        </div>
+        <div class="swot-box swot-w">
+          <h4>⚠️ Weaknesses (Kelemahan)</h4>
+          <ul>
+            <li>Banyak produk makanan memiliki umur simpan pendek</li>
+            <li>Pengemasan produk tradisional sering belum standar</li>
+            <li>UMKM mitra sering belum melek teknologi digital</li>
+            <li>Fluktuasi stok karena produksi berbasis pesanan</li>
+            <li>Biaya logistik pengiriman makanan cukup tinggi</li>
+            <li>Ketergantungan pada produsen daerah yang tersebar</li>
+            <li>Brand awareness awal yang masih rendah</li>
+          </ul>
+        </div>
+        <div class="swot-box swot-o">
+          <h4>🌟 Opportunities (Peluang)</h4>
+          <ul>
+            <li>Tren wisata kuliner dan foodie yang terus meningkat</li>
+            <li>Pertumbuhan pengguna e-commerce Indonesia yang masif</li>
+            <li>Dukungan pemerintah untuk digitalisasi UMKM</li>
+            <li>Diaspora Indonesia di luar negeri yang rindu produk lokal</li>
+            <li>Tren hadiah/parcel lebaran dan hari raya berbasis produk lokal</li>
+            <li>Ekspansi ke pasar internasional (diaspora/food enthusiast)</li>
+            <li>Kolaborasi dengan program desa wisata dan Bekraf</li>
+          </ul>
+        </div>
+        <div class="swot-box swot-t">
+          <h4>⚡ Threats (Ancaman)</h4>
+          <ul>
+            <li>Kompetisi dari marketplace besar (Tokopedia, Shopee, dll)</li>
+            <li>Risiko keamanan pangan jika tidak dikontrol ketat</li>
+            <li>Pemalsuan atau penurunan kualitas produk oleh mitra</li>
+            <li>Perubahan regulasi pangan dan e-commerce</li>
+            <li>Harga logistik yang tidak stabil</li>
+            <li>Potensi masuknya pemain baru ke segmen yang sama</li>
+            <li>Perubahan tren konsumsi generasi muda</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🧭 Strategi SWOT</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Strategi</th><th>Pendekatan</th><th>Prioritas</th></tr></thead>
+          <tbody>
+            <tr><td><strong>S-O:</strong> Gunakan kekuatan untuk meraih peluang</td><td>Bangun branding "Nusantara Asli" yang kuat; kembangkan konten edukasi kuliner; buat program kemitraan UMKM unggulan</td><td><span class="badge badge-terra">Tinggi</span></td></tr>
+            <tr><td><strong>W-O:</strong> Atasi kelemahan dengan peluang</td><td>Program pelatihan digitalisasi UMKM; standarisasi pengemasan; sistem pre-order untuk produk musiman</td><td><span class="badge badge-gold">Menengah</span></td></tr>
+            <tr><td><strong>S-T:</strong> Gunakan kekuatan untuk menghindari ancaman</td><td>Differensiasi konten budaya yang tidak bisa disaingi marketplace umum; sertifikasi halal & BPOM semua produk</td><td><span class="badge badge-terra">Tinggi</span></td></tr>
+            <tr><td><strong>W-T:</strong> Minimalkan kelemahan dan ancaman</td><td>SLA kualitas produk ketat; asuransi pengiriman; diversifikasi mitra logistik</td><td><span class="badge badge-green">Preventif</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: TARGET PENGGUNA ===== -->
+<div class="page" id="page-target">
+  <div class="page-header">
+    <div class="page-header-badge">👥 Target Pengguna</div>
+    <h1>Siapa Pengguna<br>OlehNusa?</h1>
+    <p>Segmentasi dan profil pengguna yang menjadi target utama platform OlehNusa.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>👤 Segmen Konsumen (B2C)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Persona</th><th>Profil</th><th>Motivasi Beli</th><th>Saluran Utama</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>🏙️ Urbanite Rindu Kampung</strong></td>
+              <td>Usia 25–40, pekerja kota besar, asal daerah lain</td>
+              <td>Nostalgia, kerinduan makanan kampung halaman</td>
+              <td>Instagram, TikTok, Google Search</td>
+            </tr>
+            <tr>
+              <td><strong>🎁 Pemberi Hadiah</strong></td>
+              <td>Usia 28–50, semua kalangan, butuh hadiah berkesan</td>
+              <td>Mencari hadiah unik dan bermakna untuk kerabat</td>
+              <td>Google, WOM (word of mouth)</td>
+            </tr>
+            <tr>
+              <td><strong>🌍 Diaspora Indonesia</strong></td>
+              <td>WNI di luar negeri, usia 22–55</td>
+              <td>Kerinduan produk lokal, identitas budaya</td>
+              <td>Media sosial, komunitas online</td>
+            </tr>
+            <tr>
+              <td><strong>🍴 Food Enthusiast</strong></td>
+              <td>Usia 20–35, suka eksplorasi kuliner unik</td>
+              <td>Rasa ingin tahu, konten food blog/vlog</td>
+              <td>TikTok, YouTube, Instagram</td>
+            </tr>
+            <tr>
+              <td><strong>👵 Generasi Senior</strong></td>
+              <td>Usia 45+, terbiasa dengan produk tradisional</td>
+              <td>Kepercayaan pada produk warisan leluhur</td>
+              <td>WhatsApp, rekomendasi keluarga</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏪 Segmen Penjual/Mitra (B2B)</h2>
+      <div class="card-row">
+        <div class="mini-card">
+          <div class="mini-card-icon">🏡</div>
+          <h4>UMKM Rumahan</h4>
+          <p>Produsen makanan skala rumah tangga dengan resep turun-temurun. Modal kecil, produksi terbatas tapi unik.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🏭</div>
+          <h4>UKM Menengah</h4>
+          <p>Usaha makanan berskala menengah yang sudah memiliki izin PIRT/BPOM dan produksi lebih konsisten.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🤝</div>
+          <h4>Reseller & Distributor</h4>
+          <p>Pihak yang ingin menjual kembali produk OlehNusa dalam jumlah besar untuk kantor, acara, dll.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🏨</div>
+          <h4>Hotel & Wisata</h4>
+          <p>Hotel, resort, dan agen wisata yang ingin menyediakan oleh-oleh khas daerah untuk tamu mereka.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📊 Demografi Target</h2>
+      <div class="card-row">
+        <div class="mini-card">
+          <div class="mini-card-icon">🗺️</div>
+          <h4>Geografis Utama</h4>
+          <p>Jakarta, Surabaya, Bandung, Makassar, Medan, Semarang — kota besar dengan konsumen urban yang rindu kampung.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">💰</div>
+          <h4>Ekonomi</h4>
+          <p>SES B dan C+ — pendapatan menengah ke atas yang memiliki daya beli dan akses digital yang baik.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">📱</div>
+          <h4>Digital Savvy</h4>
+          <p>Pengguna aktif media sosial dan e-commerce. Nyaman berbelanja online dan menggunakan digital payment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: PRODUK ===== -->
+<div class="page" id="page-produk">
+  <div class="page-header">
+    <div class="page-header-badge">🛍️ Rekomendasi Produk</div>
+    <h1>Katalog Produk<br>Unggulan OlehNusa</h1>
+    <p>Ragam oleh-oleh khas Nusantara yang direkomendasikan untuk diperdagangkan, lengkap dengan asal daerah dan jenis sumbernya.</p>
+  </div>
+  <div class="page-content">
+
+    <div class="card">
+      <h2>📦 Sumber Produk</h2>
+      <div class="card-row">
+        <div class="mini-card">
+          <div class="mini-card-icon">🏷️</div>
+          <h4>Private Label (Buatan Sendiri)</h4>
+          <p>Produk dengan brand OlehNusa, diproduksi oleh mitra UMKM eksklusif. Kontrol kualitas penuh. <span class="badge badge-terra">Margin Tinggi</span></p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🤝</div>
+          <h4>Reseller UMKM</h4>
+          <p>Menjual produk dari UMKM mitra yang sudah diverifikasi kualitas dan legalitasnya. <span class="badge badge-gold">Volume Besar</span></p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🌟</div>
+          <h4>Konsinyasi/Titip Jual</h4>
+          <p>Produk milik UMKM yang dititipkan ke OlehNusa; pembayaran setelah terjual. <span class="badge badge-green">Risiko Rendah</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-category-card">
+      <div class="product-cat-header" style="background:#FDE8DF">
+        <div class="product-cat-icon">🍪</div>
+        <div><div class="product-cat-name">Kue Kering & Snack</div><div class="product-cat-origin">📍 Seluruh Indonesia</div></div>
+      </div>
+      <div class="product-cat-body">
+        <div class="product-cat-items">
+          <span class="product-tag">Nastar Nanas Jogja</span><span class="product-tag">Kastengel Surabaya</span><span class="product-tag">Putri Salju Solo</span><span class="product-tag">Semprit Kelapa</span><span class="product-tag">Kue Bagea Maluku</span><span class="product-tag">Kue Sagon Manado</span><span class="product-tag">Kue Cucur Betawi</span><span class="product-tag">Kue Bolu Pandan</span><span class="product-tag">Bika Ambon Medan</span><span class="product-tag">Kue Lapis Surabaya</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:10px">Sumber: 60% Private Label, 40% Reseller UMKM | Umur simpan: 2–4 minggu</p>
+      </div>
+    </div>
+
+    <div class="product-category-card">
+      <div class="product-cat-header" style="background:#FDF0D0">
+        <div class="product-cat-icon">🌶️</div>
+        <div><div class="product-cat-name">Keripik, Kerupuk & Camilan</div><div class="product-cat-origin">📍 Jawa, Sumatera, Sulawesi</div></div>
+      </div>
+      <div class="product-cat-body">
+        <div class="product-cat-items">
+          <span class="product-tag">Keripik Tempe Malang</span><span class="product-tag">Keripik Pisang Lampung</span><span class="product-tag">Kerupuk Ikan Palembang</span><span class="product-tag">Emping Melinjo Banten</span><span class="product-tag">Keripik Singkong Pedas</span><span class="product-tag">Basreng Bandung</span><span class="product-tag">Makaroni Pedas</span><span class="product-tag">Keripik Bayam</span><span class="product-tag">Keripik Pare Sulawesi</span><span class="product-tag">Krecek Jogja</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:10px">Sumber: 50% Reseller, 50% Konsinyasi | Umur simpan: 1–3 bulan</p>
+      </div>
+    </div>
+
+    <div class="product-category-card">
+      <div class="product-cat-header" style="background:#D8F0E5">
+        <div class="product-cat-icon">🍲</div>
+        <div><div class="product-cat-name">Makanan Tradisional Kemasan</div><div class="product-cat-origin">📍 Sumatera, Jawa, Sulawesi, Kalimantan</div></div>
+      </div>
+      <div class="product-cat-body">
+        <div class="product-cat-items">
+          <span class="product-tag">Rendang Padang Kaleng</span><span class="product-tag">Abon Sapi Solo</span><span class="product-tag">Dendeng Balado</span><span class="product-tag">Sambel Matah Bali</span><span class="product-tag">Bumbu Lodeh</span><span class="product-tag">Sambal Roa Manado</span><span class="product-tag">Coto Makassar Instant</span><span class="product-tag">Serundeng Kelapa</span><span class="product-tag">Pindang Palembang</span><span class="product-tag">Opor Kering Jogja</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:10px">Sumber: 30% Private Label, 70% Reseller | Umur simpan: 3–12 bulan</p>
+      </div>
+    </div>
+
+    <div class="product-category-card">
+      <div class="product-cat-header" style="background:#EDE0D0">
+        <div class="product-cat-icon">☕</div>
+        <div><div class="product-cat-name">Minuman & Rempah Tradisional</div><div class="product-cat-origin">📍 Jawa, Bali, Sumatera</div></div>
+      </div>
+      <div class="product-cat-body">
+        <div class="product-cat-items">
+          <span class="product-tag">Kopi Toraja</span><span class="product-tag">Kopi Flores Ende</span><span class="product-tag">Teh Talua Padang</span><span class="product-tag">Wedang Jahe</span><span class="product-tag">Jamu Kunyit Asam</span><span class="product-tag">Beras Kencur</span><span class="product-tag">Loloh Cemcem Bali</span><span class="product-tag">Bajigur Bandung</span><span class="product-tag">Bandrek Sunda</span><span class="product-tag">Bir Pletok Betawi</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:10px">Sumber: 40% Private Label, 60% Reseller | Umur simpan: 6–24 bulan</p>
+      </div>
+    </div>
+
+    <div class="product-category-card">
+      <div class="product-cat-header" style="background:#F0E8FF">
+        <div class="product-cat-icon">🎁</div>
+        <div><div class="product-cat-name">Hampers & Paket Spesial</div><div class="product-cat-origin">📍 Kurasi dari seluruh Indonesia</div></div>
+      </div>
+      <div class="product-cat-body">
+        <div class="product-cat-items">
+          <span class="product-tag">Paket Lebaran Nusantara</span><span class="product-tag">Hampers Kopi Indonesia</span><span class="product-tag">Gift Box Rendang & Rempah</span><span class="product-tag">Paket Oleh-oleh Sulawesi</span><span class="product-tag">Box Jawa Tengah</span><span class="product-tag">Paket Eksplorasi 5 Daerah</span><span class="product-tag">Corporate Gift Set</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:10px">Sumber: 100% Dikurasi & Dikemas OlehNusa | Margin tertinggi</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAGE: FITUR ===== -->
+<div class="page" id="page-fitur">
+  <div class="page-header">
+    <div class="page-header-badge">⚙️ Fitur Toko Online</div>
+    <h1>Fitur-Fitur<br>Utama OlehNusa</h1>
+    <p>Ekosistem fitur yang lengkap untuk memenuhi kebutuhan konsumen, penjual, dan admin.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>📱 Fitur Utama — Sisi Konsumen</h2>
+      <div class="feature-grid">
+        <div class="feature-item"><h4>🔐 Autentikasi Multi-Platform</h4><p>Login/register via email, nomor HP, Google, Facebook, dan Apple ID.</p></div>
+        <div class="feature-item"><h4>🗺️ Pencarian by Daerah</h4><p>Filter produk berdasarkan provinsi/kota asal — fitur unik OlehNusa.</p></div>
+        <div class="feature-item"><h4>🔍 Pencarian Cerdas</h4><p>Search dengan auto-complete, koreksi typo, dan saran produk relevan.</p></div>
+        <div class="feature-item"><h4>🏷️ Kategori Berlapis</h4><p>Navigasi kategori produk: jenis, daerah asal, sertifikasi halal, harga.</p></div>
+        <div class="feature-item"><h4>🛒 Keranjang Belanja</h4><p>Keranjang multi-penjual dengan pengelompokan otomatis per toko/daerah.</p></div>
+        <div class="feature-item"><h4>❤️ Wishlist & Simpan</h4><p>Simpan produk favorit untuk dibeli nanti atau dibagikan ke teman.</p></div>
+        <div class="feature-item"><h4>⭐ Ulasan & Rating</h4><p>Review produk dengan foto/video, rating bintang, dan verifikasi pembelian.</p></div>
+        <div class="feature-item"><h4>📦 Tracking Pesanan</h4><p>Pelacakan real-time status pesanan dari konfirmasi hingga sampai tujuan.</p></div>
+        <div class="feature-item"><h4>🎁 Fitur Kirim Hadiah</h4><p>Pilihan kemasan hadiah, kartu ucapan digital, dan pengiriman langsung ke penerima.</p></div>
+        <div class="feature-item"><h4>💬 Chat Penjual</h4><p>Komunikasi langsung dengan penjual/admin untuk pertanyaan produk.</p></div>
+        <div class="feature-item"><h4>🔔 Notifikasi Cerdas</h4><p>Push notification untuk promo, restok produk favorit, dan status pesanan.</p></div>
+        <div class="feature-item"><h4>🏅 Loyalty Program</h4><p>Poin reward setiap pembelian, level member (Turis → Penjelajah → Nusantara).</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏪 Fitur Seller/UMKM Dashboard</h2>
+      <div class="feature-grid">
+        <div class="feature-item"><h4>📊 Dashboard Analitik</h4><p>Grafik penjualan, produk terlaris, pendapatan harian/bulanan/tahunan.</p></div>
+        <div class="feature-item"><h4>📦 Manajemen Produk</h4><p>Upload produk, edit harga/stok, manage varian (ukuran, rasa, kemasan).</p></div>
+        <div class="feature-item"><h4>📬 Manajemen Pesanan</h4><p>Konfirmasi pesanan, cetak label, update status pengiriman.</p></div>
+        <div class="feature-item"><h4>💰 Penarikan Dana</h4><p>Pencairan saldo ke rekening bank/e-wallet dengan jadwal otomatis.</p></div>
+        <div class="feature-item"><h4>📣 Promo & Diskon</h4><p>Buat voucher diskon, flash sale, dan bundle produk mandiri.</p></div>
+        <div class="feature-item"><h4>📝 Verifikasi Produk</h4><p>Submission PIRT/BPOM, halal cert untuk proses kurasi OlehNusa.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>⚙️ Fitur Admin Panel</h2>
+      <div class="feature-grid">
+        <div class="feature-item"><h4>👥 Manajemen User</h4><p>CRUD konsumen, penjual, admin; kontrol akses berbasis peran.</p></div>
+        <div class="feature-item"><h4>✅ Kurasi Produk</h4><p>Review dan approve/reject produk baru dari UMKM mitra.</p></div>
+        <div class="feature-item"><h4>💳 Manajemen Transaksi</h4><p>Monitor semua transaksi, handle dispute, proses refund.</p></div>
+        <div class="feature-item"><h4>📢 CMS Konten</h4><p>Kelola banner, artikel, halaman cerita budaya produk.</p></div>
+        <div class="feature-item"><h4>🚀 Kampanye Marketing</h4><p>Buat dan monitor kampanye promosi, voucher platform, email blast.</p></div>
+        <div class="feature-item"><h4>📈 Laporan Bisnis</h4><p>Laporan komprehensif GMV, revenue, pertumbuhan pengguna.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: LAYANAN PELANGGAN ===== -->
+<div class="page" id="page-layanan">
+  <div class="page-header">
+    <div class="page-header-badge">💬 Layanan Pelanggan</div>
+    <h1>Layanan Pelanggan<br>OlehNusa</h1>
+    <p>Sistem dukungan pelanggan yang responsif, ramah, dan solutif untuk memastikan kepuasan berbelanja.</p>
+  </div>
+  <div class="page-content">
+    <div class="card-row">
+      <div class="mini-card"><div class="mini-card-icon">💬</div><h4>Live Chat 24/7</h4><p>Chat langsung dengan CS melalui aplikasi. Respons <3 menit di jam kerja, <15 menit di luar jam kerja via AI chatbot.</p></div>
+      <div class="mini-card"><div class="mini-card-icon">📞</div><h4>Hotline CS</h4><p>Nomor bebas pulsa (0800-OLEHNUSA) untuk komplain produk, pengiriman, dan pertanyaan kritis.</p></div>
+      <div class="mini-card"><div class="mini-card-icon">📧</div><h4>Email Support</h4><p>cs@olehnusa.id — untuk pertanyaan detail, klaim, dan B2B inquiry. Respons ≤24 jam kerja.</p></div>
+      <div class="mini-card"><div class="mini-card-icon">💚</div><h4>WhatsApp Business</h4><p>Chat via WA Business API untuk konsumen yang lebih nyaman dengan WhatsApp. Dengan auto-reply pintar.</p></div>
+    </div>
+    <div class="card">
+      <h2>🔄 Kebijakan Pengembalian & Garansi</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Situasi</th><th>Kebijakan</th><th>Proses</th></tr></thead>
+          <tbody>
+            <tr><td>Produk rusak saat diterima</td><td>Full refund atau ganti produk baru</td><td>Foto bukti → verifikasi 1×24 jam → refund/kirim ulang</td></tr>
+            <tr><td>Produk tidak sesuai deskripsi</td><td>Pengembalian dalam 3 hari setelah terima</td><td>Lapor di app → return label → refund 3–5 hari kerja</td></tr>
+            <tr><td>Produk kadaluarsa</td><td>Full refund + voucher kompensasi</td><td>Otomatis diproses setelah foto verified</td></tr>
+            <tr><td>Salah kirim produk</td><td>Ganti produk benar + gratis ongkir</td><td>CS koordinasi dengan penjual langsung</td></tr>
+            <tr><td>Paket hilang/tidak tiba</td><td>Full refund atau kirim ulang</td><td>Koordinasi dengan ekspedisi, max 7 hari kerja</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🤖 AI Chatbot OlehNusa</h2>
+      <p>Chatbot berbasis AI akan menangani pertanyaan umum secara otomatis:</p>
+      <ul style="margin-top:10px">
+        <li>Status pesanan dan pelacakan real-time</li>
+        <li>Informasi produk (bahan, halal, kadaluarsa)</li>
+        <li>Rekomendasi produk berdasarkan preferensi</li>
+        <li>Panduan penggunaan voucher dan promo</li>
+        <li>Estimasi waktu dan biaya pengiriman</li>
+        <li>Eskalasi otomatis ke CS manusia jika tidak terselesaikan</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: PENGIRIMAN ===== -->
+<div class="page" id="page-pengiriman">
+  <div class="page-header">
+    <div class="page-header-badge">🚚 Pengiriman</div>
+    <h1>Sistem Logistik<br>& Pengiriman</h1>
+    <p>Strategi pengiriman yang menjamin produk sampai segar, aman, dan tepat waktu ke seluruh Indonesia.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🤝 Mitra Logistik</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mitra</th><th>Jenis Layanan</th><th>Coverage</th><th>Keunggulan</th></tr></thead>
+          <tbody>
+            <tr><td><strong>JNE</strong></td><td>Reguler, YES, OKE</td><td>Nasional</td><td>Jaringan luas, terpercaya</td></tr>
+            <tr><td><strong>J&T Express</strong></td><td>Standar, Same Day</td><td>Nasional</td><td>Pick-up jemput, ekonomis</td></tr>
+            <tr><td><strong>SiCepat</strong></td><td>Halu (reguler), BEST</td><td>Nasional</td><td>Cepat, teknologi tracking baik</td></tr>
+            <tr><td><strong>GoSend/GrabExpress</strong></td><td>Same-day, Instant</td><td>Kota besar</td><td>Untuk produk segar, same day</td></tr>
+            <tr><td><strong>Anteraja</strong></td><td>Reguler, Next Day</td><td>Nasional</td><td>Kompetitif untuk Jawa</td></tr>
+            <tr><td><strong>Pos Indonesia</strong></td><td>Reguler</td><td>Seluruh RI + LN</td><td>Ekspedisi ke pelosok dan luar negeri</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>❄️ Khusus Produk Sensitif Suhu</h2>
+      <div class="card-row">
+        <div class="mini-card"><div class="mini-card-icon">🧊</div><h4>Kemasan Insulated</h4><p>Kotak styrofoam + ice gel untuk produk yang perlu dijaga suhunya seperti kue basah tradisional.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">⚡</div><h4>Pengiriman Ekspres</h4><p>Prioritas same-day atau next-day untuk produk dengan umur simpan <3 hari agar sampai segar.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🔒</div><h4>Vakum & Segel</h4><p>Standar pengemasan vakum untuk produk seperti rendang, abon, dan makanan berbumbu.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>💰 Kebijakan Ongkos Kirim</h2>
+      <ul>
+        <li><strong>Gratis ongkir:</strong> Minimal pembelian Rp 200.000 (area Jawa & Bali), Rp 350.000 (luar Jawa)</li>
+        <li><strong>Voucher ongkir:</strong> Tersedia untuk pengguna baru, member loyal, dan event tertentu</li>
+        <li><strong>Asuransi pengiriman:</strong> Otomatis untuk pesanan ≥ Rp 500.000</li>
+        <li><strong>Multi-ekspedisi:</strong> Konsumen dapat memilih ekspedisi pilihan saat checkout</li>
+        <li><strong>Pengiriman ke LN:</strong> Tersedia via Pos Indonesia EMS untuk diaspora</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: PAYMENT ===== -->
+<div class="page" id="page-payment">
+  <div class="page-header">
+    <div class="page-header-badge">💳 Payment Gateway</div>
+    <h1>Sistem Pembayaran<br>OlehNusa</h1>
+    <p>Opsi pembayaran yang lengkap, aman, dan nyaman untuk semua kalangan konsumen.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🏦 Payment Gateway Utama: Midtrans</h2>
+      <p>OlehNusa menggunakan <strong>Midtrans</strong> sebagai payment gateway utama — solusi pembayaran terpercaya dari Gojek Group yang mendukung 20+ metode pembayaran dalam satu integrasi.</p>
+      <div class="highlight-box" style="margin-top:14px">
+        <strong>Mengapa Midtrans?</strong> Terpercaya, sudah PCI DSS compliant, mendukung semua metode pembayaran populer di Indonesia, dashboard merchant lengkap, dan biaya kompetitif (MDR 0.7–2% tergantung metode).
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💳 Metode Pembayaran yang Didukung</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kategori</th><th>Metode</th><th>Keterangan</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Kartu</strong></td><td>Visa, Mastercard, JCB</td><td>Cicilan 0% tersedia untuk kartu tertentu</td></tr>
+            <tr><td><strong>Transfer Bank</strong></td><td>BCA, BNI, BRI, Mandiri, Permata</td><td>Virtual Account otomatis kadaluarsa 24 jam</td></tr>
+            <tr><td><strong>E-Wallet</strong></td><td>GoPay, OVO, Dana, ShopeePay, LinkAja</td><td>Pembayaran instan, sering ada promo cashback</td></tr>
+            <tr><td><strong>QRIS</strong></td><td>QRIS Nasional</td><td>Scan & pay, mendukung semua e-wallet</td></tr>
+            <tr><td><strong>Paylater</strong></td><td>Akulaku, Kredivo, GoPay Later</td><td>Cicilan tanpa kartu kredit untuk millennials</td></tr>
+            <tr><td><strong>Minimarket</strong></td><td>Indomaret, Alfamart, Lawson</td><td>Untuk konsumen yang tidak punya rekening bank</td></tr>
+            <tr><td><strong>COD</strong></td><td>Cash on Delivery</td><td>Area tertentu via mitra logistik yang support COD</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔒 Keamanan Transaksi</h2>
+      <div class="card-row">
+        <div class="mini-card"><div class="mini-card-icon">🛡️</div><h4>SSL Enkripsi</h4><p>Semua transaksi terenkripsi dengan SSL 256-bit. Data kartu tidak tersimpan di server OlehNusa.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🔐</div><h4>3D Secure</h4><p>Verifikasi tambahan untuk transaksi kartu kredit/debit via OTP atau app bank.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🤖</div><h4>Fraud Detection</h4><p>Sistem AI Midtrans mendeteksi transaksi mencurigakan secara real-time sebelum diproses.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">📋</div><h4>PCI DSS</h4><p>Memenuhi standar keamanan data kartu pembayaran internasional (PCI DSS Level 1).</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: DESAIN ===== -->
+<div class="page" id="page-desain">
+  <div class="page-header">
+    <div class="page-header-badge">🎨 Desain UI/UX & Warna</div>
+    <h1>Filosofi Desain<br>OlehNusa</h1>
+    <p>Sistem desain yang terinspirasi kekayaan budaya Nusantara, menghadirkan nuansa hangat, otentik, dan membumi.</p>
+  </div>
+  <div class="page-content">
+
+    <div class="card">
+      <h2>🎨 Filosofi Desain: "Tanah & Rempah"</h2>
+      <p>Desain OlehNusa terinspirasi dari dua elemen yang paling mewakili Nusantara: <strong>tanah liat</strong> yang menjadi simbol kearifan lokal dan akar budaya, serta <strong>rempah-rempah</strong> yang telah ribuan tahun menjadi kekayaan dan identitas Indonesia di mata dunia.</p>
+      <br>
+      <p>Setiap elemen visual dipilih untuk membangkitkan perasaan <em>hangat, dipercaya, dan otentik</em> — seolah konsumen sedang berjalan di pasar tradisional yang semarak namun teratur, dan menemukan produk-produk istimewa yang masing-masing memiliki cerita.</p>
+    </div>
+
+    <div class="card">
+      <h2>🖌️ Palet Warna Utama</h2>
+      <div class="palette">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#C8552A"></div>
+          <div class="swatch-info"><div class="swatch-name">Terra Merah</div><div class="swatch-hex">#C8552A</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#D4A437"></div>
+          <div class="swatch-info"><div class="swatch-name">Kunyit Emas</div><div class="swatch-hex">#D4A437</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#4A2C0A"></div>
+          <div class="swatch-info"><div class="swatch-name">Cokelat Kayu</div><div class="swatch-hex">#4A2C0A</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#FDF6EC"></div>
+          <div class="swatch-info"><div class="swatch-name">Krem Nasi</div><div class="swatch-hex">#FDF6EC</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#2D6A4F"></div>
+          <div class="swatch-info"><div class="swatch-name">Hijau Daun</div><div class="swatch-hex">#2D6A4F</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#9E3D18"></div>
+          <div class="swatch-info"><div class="swatch-name">Merah Bata</div><div class="swatch-hex">#9E3D18</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#F0C860"></div>
+          <div class="swatch-info"><div class="swatch-name">Emas Terang</div><div class="swatch-hex">#F0C860</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#7A4F1E"></div>
+          <div class="swatch-info"><div class="swatch-name">Cokelat Mid</div><div class="swatch-hex">#7A4F1E</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📖 Makna Setiap Warna</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Warna</th><th>Inspirasi</th><th>Makna Filosofis</th><th>Penggunaan</th></tr></thead>
+          <tbody>
+            <tr><td><span style="color:#C8552A;font-weight:700">■ Terra Merah</span></td><td>Tanah liat Jawa, Gerabah Kasongan</td><td>Keberanian, semangat, kehangatan — seperti semangat pedagang nusantara</td><td>CTA utama, header, aksen brand</td></tr>
+            <tr><td><span style="color:#D4A437;font-weight:700">■ Kunyit Emas</span></td><td>Kunyit, rempah emas Nusantara</td><td>Kemewahan sederhana, keaslian, nilai tradisi yang berharga</td><td>Highlight, ikon, aksen premium</td></tr>
+            <tr><td><span style="color:#4A2C0A;font-weight:700">■ Cokelat Kayu</span></td><td>Kayu jati, meja pasar, dapur tradisional</td><td>Kepercayaan, kekokohan, akar budaya yang dalam</td><td>Teks utama, navbar, footer</td></tr>
+            <tr><td><span style="color:#B0945A;font-weight:700">■ Krem Nasi</span></td><td>Warna nasi, anyaman bambu</td><td>Kesederhanaan, kenyamanan, seperti rumah sendiri</td><td>Background utama, card surface</td></tr>
+            <tr><td><span style="color:#2D6A4F;font-weight:700">■ Hijau Daun</span></td><td>Daun pisang, pandan, alam tropis</td><td>Kesegaran, alami, ramah lingkungan, halal</td><td>Indikator sukses, halal badge, promo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔤 Tipografi</h2>
+      <div class="card-row">
+        <div class="mini-card">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--brown);margin-bottom:8px">Aa</div>
+          <h4>Playfair Display</h4>
+          <p>Heading & Display. Serif elegan yang memancarkan keanggunan tradisional. Digunakan untuk judul halaman, nama produk unggulan.</p>
+        </div>
+        <div class="mini-card">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:600;color:var(--brown);margin-bottom:8px">Aa</div>
+          <h4>Plus Jakarta Sans</h4>
+          <p>Body & UI. Font sans-serif modern buatan Indonesia yang tepat untuk teks body, navigasi, dan elemen UI yang butuh keterbacaan tinggi.</p>
+        </div>
+        <div class="mini-card">
+          <div style="font-family:'Noto Serif',serif;font-size:28px;font-style:italic;color:var(--brown);margin-bottom:8px">Aa</div>
+          <h4>Noto Serif</h4>
+          <p>Kutipan & Cerita. Untuk teks cerita di balik produk, kutipan budaya, dan konten editorial yang membutuhkan nuansa sastra.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎭 Elemen Visual Khas OlehNusa</h2>
+      <ul>
+        <li><strong>Motif Batik Mikro:</strong> Digunakan sebagai tekstur halus di background dan header — memberikan identitas Nusantara tanpa berlebihan</li>
+        <li><strong>Badge Daerah:</strong> Setiap produk memiliki "stempel asal daerah" berbentuk hexagon dengan nama provinsi</li>
+        <li><strong>Ikon Ilustrasi:</strong> Ikon custom bergaya ilustrasi tangan yang menggambarkan kuliner khas (kue, rempah, wajan, dll)</li>
+        <li><strong>Gradient Hangat:</strong> Gradient dari merah terra ke cokelat kayu — menggantikan gradient dingin yang generik</li>
+        <li><strong>Foto Produk + Konteks:</strong> Foto produk selalu disertai konteks budaya (dapur tradisional, pasar lokal, tangan pengrajin)</li>
+        <li><strong>Ornamen Sulur:</strong> Elemen dekoratif berbasis sulur ukiran kayu Jawa pada batas section dan card premium</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAGE: WIREFRAME ===== -->
+<div class="page" id="page-wireframe">
+  <div class="page-header">
+    <div class="page-header-badge">📱 Wireframe & Prototype</div>
+    <h1>Prototype UI<br>Aplikasi Mobile</h1>
+    <p>Tampilan prototype layar-layar utama aplikasi mobile OlehNusa versi Android & iOS.</p>
+  </div>
+  <div class="page-content">
+
+    <div class="wireframe-tabs">
+      <div class="wf-tab active" onclick="showWireframe('login')">🔐 Login</div>
+      <div class="wf-tab" onclick="showWireframe('home')">🏠 Beranda</div>
+      <div class="wf-tab" onclick="showWireframe('detail')">📦 Detail Produk</div>
+      <div class="wf-tab" onclick="showWireframe('cart')">🛒 Keranjang</div>
+      <div class="wf-tab" onclick="showWireframe('payment')">💳 Pembayaran</div>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="wireframe active" id="wf-login">
+      <div class="wf-screen">
+        <div class="wf-statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="wf-login">
+          <div class="wf-batik-ornament">🏝️</div>
+          <div class="wf-logo-big">OlehNusa</div>
+          <div class="wf-logo-tagline">Oleh-oleh Nusantara</div>
+          <div class="wf-login-card">
+            <h3>Selamat Datang!</h3>
+            <div class="wf-input-group">
+              <label>Email atau No. HP</label>
+              <div class="wf-input">contoh@email.com</div>
+            </div>
+            <div class="wf-input-group">
+              <label>Kata Sandi</label>
+              <div class="wf-input">••••••••</div>
+            </div>
+            <div style="text-align:right;margin-bottom:14px"><span style="color:var(--gold-light);font-size:12px;cursor:pointer">Lupa kata sandi?</span></div>
+            <div class="wf-btn-primary">Masuk</div>
+            <div class="wf-divider"><span>atau masuk dengan</span></div>
+            <div class="wf-socials">
+              <div class="wf-social-btn">🟦 Google</div>
+              <div class="wf-social-btn">📘 Facebook</div>
+            </div>
+            <div class="wf-register-link">Belum punya akun? <span>Daftar Sekarang</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <div class="wireframe" id="wf-home">
+      <div class="wf-screen">
+        <div class="wf-statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="wf-body">
+          <div class="wf-navbar">
+            <div><div class="wf-nav-logo">OlehNusa</div><div style="font-size:10px;color:var(--text-light)">Halo, Budi 👋</div></div>
+            <div class="wf-nav-icons"><span>🔔</span><span>🛒</span></div>
+          </div>
+          <div class="wf-search-bar">🔍 Cari oleh-oleh dari daerah mana...</div>
+          <div class="wf-banner">
+            <div class="wf-banner-badge">PROMO LEBARAN</div>
+            <h3>Oleh-oleh<br>Nusantara Terlengkap</h3>
+            <p>Gratis ongkir min. Rp 200rb</p>
+            <div class="wf-banner-btn">Belanja Sekarang →</div>
+          </div>
+          <div class="wf-section-header">
+            <div class="wf-section-title">🗺️ Pilih Daerah</div>
+            <div class="wf-see-all">Lihat Semua</div>
+          </div>
+          <div class="wf-categories">
+            <div class="wf-cat-chip selected">🌴 Semua</div>
+            <div class="wf-cat-chip">☕ Sulawesi</div>
+            <div class="wf-cat-chip">🌋 Jawa</div>
+            <div class="wf-cat-chip">🏝️ Bali</div>
+            <div class="wf-cat-chip">🌿 Sumatera</div>
+          </div>
+          <div class="wf-section-header">
+            <div class="wf-section-title">🔥 Produk Terlaris</div>
+            <div class="wf-see-all">Lihat Semua</div>
+          </div>
+          <div class="wf-products">
+            <div class="wf-product-card">
+              <div class="wf-product-img" style="background:#FDE8DF">🍪</div>
+              <div class="wf-product-body">
+                <div class="wf-product-origin">📍 Yogyakarta</div>
+                <div class="wf-product-name">Nastar Nanas Premium</div>
+                <div class="wf-product-rating">⭐⭐⭐⭐⭐</div>
+                <div class="wf-product-price">Rp 65.000</div>
+              </div>
+            </div>
+            <div class="wf-product-card">
+              <div class="wf-product-img" style="background:#FDF0D0">🥩</div>
+              <div class="wf-product-body">
+                <div class="wf-product-origin">📍 Padang</div>
+                <div class="wf-product-name">Rendang Kaleng Asli</div>
+                <div class="wf-product-rating">⭐⭐⭐⭐⭐</div>
+                <div class="wf-product-price">Rp 120.000</div>
+              </div>
+            </div>
+            <div class="wf-product-card">
+              <div class="wf-product-img" style="background:#D8F0E5">☕</div>
+              <div class="wf-product-body">
+                <div class="wf-product-origin">📍 Toraja</div>
+                <div class="wf-product-name">Kopi Toraja Arabika</div>
+                <div class="wf-product-rating">⭐⭐⭐⭐⭐</div>
+                <div class="wf-product-price">Rp 85.000</div>
+              </div>
+            </div>
+            <div class="wf-product-card">
+              <div class="wf-product-img" style="background:#EDE0D0">🌶️</div>
+              <div class="wf-product-body">
+                <div class="wf-product-origin">📍 Manado</div>
+                <div class="wf-product-name">Sambal Roa Asli</div>
+                <div class="wf-product-rating">⭐⭐⭐⭐☆</div>
+                <div class="wf-product-price">Rp 55.000</div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-bottomnav">
+            <div class="wf-bnav-item active"><span class="ico">🏠</span>Beranda</div>
+            <div class="wf-bnav-item"><span class="ico">🔍</span>Jelajah</div>
+            <div class="wf-bnav-item"><span class="ico">🛒</span>Keranjang</div>
+            <div class="wf-bnav-item"><span class="ico">❤️</span>Wishlist</div>
+            <div class="wf-bnav-item"><span class="ico">👤</span>Profil</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="wireframe" id="wf-detail">
+      <div class="wf-screen">
+        <div class="wf-statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="wf-body">
+          <div class="wf-product-hero">
+            🥩
+            <div class="wf-back-btn">←</div>
+            <div class="wf-wishlist-btn">❤️</div>
+          </div>
+          <div class="wf-product-detail-body">
+            <div class="wf-product-detail-origin">📍 Padang, Sumatera Barat</div>
+            <div class="wf-product-detail-name">Rendang Daging<br>Kaleng Premium</div>
+            <div class="wf-product-detail-meta">
+              <span class="wf-stars">⭐⭐⭐⭐⭐</span>
+              <span class="wf-review-count">(428 ulasan)</span>
+              <span class="wf-sold-count">• 1.2rb terjual</span>
+            </div>
+            <div class="wf-product-detail-price">Rp 120.000</div>
+            <div class="wf-product-detail-priceper">per 200gr | Min. 1 kaleng</div>
+            <div class="wf-info-chips">
+              <span class="wf-info-chip">✅ Halal MUI</span>
+              <span class="wf-info-chip">🏛️ BPOM</span>
+              <span class="wf-info-chip">📅 Exp. 12 bln</span>
+              <span class="wf-info-chip">🌶️ Pedas Sedang</span>
+            </div>
+            <div class="wf-section-divider"></div>
+            <div class="wf-desc-title">📖 Cerita di Balik Produk</div>
+            <div class="wf-desc-text">Rendang Mak Cik Sari telah diwariskan sejak 1962 dari generasi ke generasi di Nagari Balimbing, Padang. Menggunakan rempah pilihan: cabai merah keriting, santan kelapa tua, dan lengkuas segar. Dimasak 5–6 jam dengan api kecil tradisional...</div>
+            <div class="wf-desc-title">🚚 Info Pengiriman</div>
+            <div class="wf-desc-text" style="margin-bottom:0">Dikirim dari Padang • JNE / J&T • Estimasi 2–4 hari</div>
+          </div>
+          <div class="wf-add-cart-bar">
+            <div class="wf-qty-ctrl">
+              <div class="wf-qty-btn">−</div>
+              <div class="wf-qty-num">1</div>
+              <div class="wf-qty-btn">+</div>
+            </div>
+            <button class="wf-cart-btn">🛒 Keranjang</button>
+            <button class="wf-buy-btn">Beli Langsung</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART -->
+    <div class="wireframe" id="wf-cart">
+      <div class="wf-screen">
+        <div class="wf-statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="wf-body">
+          <div class="wf-cart-header">
+            <span style="font-size:20px">←</span>
+            <div class="wf-cart-title">Keranjang Belanja</div>
+            <span style="font-size:13px;color:var(--terra);font-weight:600">Hapus</span>
+          </div>
+          <div class="wf-cart-list">
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">🏪 Toko Rendang Mak Sari</div>
+            <div class="wf-cart-item">
+              <div class="wf-cart-img">🥩</div>
+              <div class="wf-cart-info">
+                <div class="wf-cart-item-origin">📍 Padang</div>
+                <div class="wf-cart-item-name">Rendang Kaleng Premium</div>
+                <div class="wf-cart-item-price">Rp 120.000</div>
+                <div class="wf-cart-item-qty">
+                  <div class="wf-qty-btn" style="font-size:14px">−</div>
+                  <div class="wf-qty-num">2</div>
+                  <div class="wf-qty-btn" style="font-size:14px">+</div>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;margin-top:6px">🏪 Kopi Toraja Bu Rini</div>
+            <div class="wf-cart-item">
+              <div class="wf-cart-img">☕</div>
+              <div class="wf-cart-info">
+                <div class="wf-cart-item-origin">📍 Toraja</div>
+                <div class="wf-cart-item-name">Kopi Toraja Arabika 250gr</div>
+                <div class="wf-cart-item-price">Rp 85.000</div>
+                <div class="wf-cart-item-qty">
+                  <div class="wf-qty-btn" style="font-size:14px">−</div>
+                  <div class="wf-qty-num">1</div>
+                  <div class="wf-qty-btn" style="font-size:14px">+</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-cart-bottom">
+            <div style="display:flex;gap:8px;margin-bottom:14px">
+              <div style="flex:1;background:var(--cream-dark);border:1.5px dashed var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text-light)">🏷️ Masukkan kode voucher...</div>
+              <div style="background:var(--terra);color:var(--white);border-radius:10px;padding:10px 14px;font-size:12px;font-weight:700">Pakai</div>
+            </div>
+            <div class="wf-cart-summary">
+              <div class="wf-cart-row"><span>Subtotal (3 item)</span><span>Rp 325.000</span></div>
+              <div class="wf-cart-row"><span>Ongkos Kirim</span><span style="color:var(--green)">Gratis</span></div>
+              <div class="wf-cart-row"><span>Voucher</span><span style="color:var(--green)">-Rp 20.000</span></div>
+              <div class="wf-cart-row total"><span>Total</span><span style="color:var(--terra-dark)">Rp 305.000</span></div>
+            </div>
+            <div class="wf-checkout-btn">Lanjut ke Pembayaran →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="wireframe" id="wf-payment">
+      <div class="wf-screen">
+        <div class="wf-statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="wf-body">
+          <div class="wf-payment-header">
+            <span style="font-size:20px">←</span>
+            <div style="font-size:16px;font-weight:800;color:var(--brown)">Konfirmasi Pesanan</div>
+          </div>
+          <div class="wf-payment-body">
+            <div class="wf-section-label">📍 Alamat Pengiriman</div>
+            <div class="wf-address-box">
+              <div class="wf-address-name">Budi Santoso <span style="background:#D8F0E5;color:var(--green);font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:6px">UTAMA</span></div>
+              <div class="wf-address-phone">+62 812-3456-7890</div>
+              <div class="wf-address-text">Jl. Melati No. 12, Kec. Rappocini, Kota Makassar, Sulawesi Selatan 90222</div>
+              <div style="margin-top:8px;font-size:11px;color:var(--terra);font-weight:600;cursor:pointer">✏️ Ganti Alamat</div>
+            </div>
+            <div class="wf-section-label">💳 Metode Pembayaran</div>
+            <div class="wf-payment-methods">
+              <div class="wf-pay-method selected">
+                <div class="wf-pay-icon">💚</div>
+                <div class="wf-pay-info"><div class="wf-pay-name">GoPay</div><div class="wf-pay-sub">Saldo: Rp 450.000</div></div>
+                <div class="wf-pay-radio"></div>
+              </div>
+              <div class="wf-pay-method">
+                <div class="wf-pay-icon">🏦</div>
+                <div class="wf-pay-info"><div class="wf-pay-name">Transfer Bank</div><div class="wf-pay-sub">BCA, BNI, Mandiri, BRI</div></div>
+                <div class="wf-pay-radio"></div>
+              </div>
+              <div class="wf-pay-method">
+                <div class="wf-pay-icon">📱</div>
+                <div class="wf-pay-info"><div class="wf-pay-name">QRIS</div><div class="wf-pay-sub">Scan barcode bayar</div></div>
+                <div class="wf-pay-radio"></div>
+              </div>
+            </div>
+            <div class="wf-section-label">🚚 Layanan Pengiriman</div>
+            <div class="wf-address-box" style="display:flex;align-items:center;justify-content:space-between">
+              <div><div class="wf-address-name">JNE Reguler</div><div class="wf-address-phone">Estimasi 2–4 hari kerja</div></div>
+              <div style="font-size:14px;font-weight:800;color:var(--green)">GRATIS</div>
+            </div>
+            <div style="background:var(--cream-dark);border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-top:6px">
+              <div class="wf-cart-row"><span>Total Belanja</span><span>Rp 325.000</span></div>
+              <div class="wf-cart-row"><span>Ongkos Kirim</span><span style="color:var(--green)">Gratis</span></div>
+              <div class="wf-cart-row"><span>Diskon Voucher</span><span style="color:var(--green)">-Rp 20.000</span></div>
+              <div class="wf-cart-row" style="font-size:16px;font-weight:900;color:var(--brown);padding-top:8px;border-top:1px solid var(--border);margin-top:6px"><span>Total Bayar</span><span style="color:var(--terra-dark)">Rp 305.000</span></div>
+            </div>
+            <div class="wf-pay-btn">Bayar Sekarang 🔐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAGE: ARSITEKTUR ===== -->
+<div class="page" id="page-arsitektur">
+  <div class="page-header">
+    <div class="page-header-badge">🏗️ Arsitektur Sistem</div>
+    <h1>Arsitektur<br>Toko Online OlehNusa</h1>
+    <p>Struktur teknis sistem yang memastikan performa, keamanan, dan skalabilitas OlehNusa.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🏛️ Arsitektur Multi-Layer</h2>
+      <div class="arch-layer">
+        <div class="arch-layer-name">👤 Client Layer (Frontend)</div>
+        <div class="arch-components">
+          <div class="arch-comp">📱 Mobile App (React Native)</div>
+          <div class="arch-comp">🌐 Web App (Next.js)</div>
+          <div class="arch-comp">🛠️ Admin Panel (React + Vite)</div>
+          <div class="arch-comp">📊 Seller Dashboard</div>
+        </div>
+      </div>
+      <div style="text-align:center;color:var(--terra);font-size:20px;margin:4px 0">↕</div>
+      <div class="arch-layer">
+        <div class="arch-layer-name">🔌 API Gateway & Load Balancer</div>
+        <div class="arch-components">
+          <div class="arch-comp">🛡️ Nginx Load Balancer</div>
+          <div class="arch-comp">🔑 JWT Auth</div>
+          <div class="arch-comp">⚡ Rate Limiting</div>
+          <div class="arch-comp">📜 API Versioning</div>
+        </div>
+      </div>
+      <div style="text-align:center;color:var(--terra);font-size:20px;margin:4px 0">↕</div>
+      <div class="arch-layer">
+        <div class="arch-layer-name">⚙️ Microservices Layer (Backend)</div>
+        <div class="arch-components">
+          <div class="arch-comp">👤 User Service</div>
+          <div class="arch-comp">🛍️ Product Service</div>
+          <div class="arch-comp">📬 Order Service</div>
+          <div class="arch-comp">💳 Payment Service</div>
+          <div class="arch-comp">🚚 Shipping Service</div>
+          <div class="arch-comp">🔔 Notification Service</div>
+          <div class="arch-comp">💬 Chat Service</div>
+          <div class="arch-comp">📊 Analytics Service</div>
+        </div>
+      </div>
+      <div style="text-align:center;color:var(--terra);font-size:20px;margin:4px 0">↕</div>
+      <div class="arch-layer">
+        <div class="arch-layer-name">🗄️ Data Layer</div>
+        <div class="arch-components">
+          <div class="arch-comp">🐘 PostgreSQL (utama)</div>
+          <div class="arch-comp">⚡ Redis Cache</div>
+          <div class="arch-comp">🔍 Elasticsearch</div>
+          <div class="arch-comp">☁️ AWS S3 (media)</div>
+          <div class="arch-comp">📡 Firebase (realtime)</div>
+        </div>
+      </div>
+      <div style="text-align:center;color:var(--terra);font-size:20px;margin:4px 0">↕</div>
+      <div class="arch-layer">
+        <div class="arch-layer-name">🌐 Third Party Integrations</div>
+        <div class="arch-components">
+          <div class="arch-comp">💳 Midtrans Payment</div>
+          <div class="arch-comp">📦 JNE/J&T API</div>
+          <div class="arch-comp">📧 SendGrid Email</div>
+          <div class="arch-comp">📱 Firebase FCM</div>
+          <div class="arch-comp">🗺️ Google Maps API</div>
+          <div class="arch-comp">☁️ AWS CloudFront CDN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: TECH STACK ===== -->
+<div class="page" id="page-techstack">
+  <div class="page-header">
+    <div class="page-header-badge">💻 Tech Stack</div>
+    <h1>Teknologi yang<br>Digunakan OlehNusa</h1>
+    <p>Tumpukan teknologi modern yang handal, skalabel, dan mudah dikembangkan.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🖥️ Frontend & Mobile</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-item-icon">⚛️</div><div class="tech-item-name">React Native</div><div class="tech-item-role">Mobile App (iOS & Android)</div></div>
+        <div class="tech-item"><div class="tech-item-icon">▲</div><div class="tech-item-name">Next.js 14</div><div class="tech-item-role">Web Frontend (SSR/SSG)</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🎨</div><div class="tech-item-name">Tailwind CSS</div><div class="tech-item-role">Styling Framework</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔷</div><div class="tech-item-name">TypeScript</div><div class="tech-item-role">Type-safe JavaScript</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔄</div><div class="tech-item-name">Zustand</div><div class="tech-item-role">State Management</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🌐</div><div class="tech-item-name">React Query</div><div class="tech-item-role">Server State & Caching</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>⚙️ Backend</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-item-icon">🟩</div><div class="tech-item-name">Node.js</div><div class="tech-item-role">Runtime Environment</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🚂</div><div class="tech-item-name">Express.js</div><div class="tech-item-role">REST API Framework</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🐘</div><div class="tech-item-name">PostgreSQL</div><div class="tech-item-role">Database Utama</div></div>
+        <div class="tech-item"><div class="tech-item-icon">⚡</div><div class="tech-item-name">Redis</div><div class="tech-item-role">Caching & Sessions</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔍</div><div class="tech-item-name">Elasticsearch</div><div class="tech-item-role">Search Engine Produk</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔑</div><div class="tech-item-name">JWT + OAuth2</div><div class="tech-item-role">Authentication</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>☁️ Infrastructure & DevOps</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-item-icon">🟠</div><div class="tech-item-name">AWS EC2 + RDS</div><div class="tech-item-role">Cloud Hosting & DB</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🐳</div><div class="tech-item-name">Docker + K8s</div><div class="tech-item-role">Containerization</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🚀</div><div class="tech-item-name">GitHub Actions</div><div class="tech-item-role">CI/CD Pipeline</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📊</div><div class="tech-item-name">Grafana + Prometheus</div><div class="tech-item-role">Monitoring</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🛡️</div><div class="tech-item-name">Cloudflare WAF</div><div class="tech-item-role">Security & CDN</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔔</div><div class="tech-item-name">Firebase FCM</div><div class="tech-item-role">Push Notifications</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: FLOWCHART ===== -->
+<div class="page" id="page-flowchart">
+  <div class="page-header">
+    <div class="page-header-badge">🔄 Flowchart</div>
+    <h1>Alur Proses<br>Bisnis OlehNusa</h1>
+    <p>Diagram alur proses dari pemesanan konsumen hingga penyelesaian transaksi dan pengiriman.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🛒 Alur Pemesanan Konsumen</h2>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:16px 0">
+        <!-- Flowchart boxes -->
+        <div style="background:var(--brown);color:var(--gold-light);padding:12px 32px;border-radius:30px;font-size:13px;font-weight:700">🚀 Mulai: Buka Aplikasi</div>
+        <div style="width:2px;height:24px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">🔐 Login / Register</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">🔍 Cari / Browse Produk</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">📦 Lihat Detail Produk</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:#FDE8DF;border:2px solid var(--terra-light);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--terra-dark)">⬟ Tambah ke Keranjang?</div>
+        <div style="display:flex;gap:60px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:2px;height:20px;background:var(--green)"></div>
+            <div style="font-size:11px;color:var(--green);font-weight:700;margin-bottom:4px">YA</div>
+            <div style="background:var(--cream-dark);border:2px solid var(--border);padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;color:var(--brown)">🛒 Keranjang</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:2px;height:20px;background:var(--gold)"></div>
+            <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px">TIDAK</div>
+            <div style="background:var(--cream-dark);border:2px solid var(--border);padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;color:var(--brown)">❤️ Wishlist</div>
+          </div>
+        </div>
+        <div style="width:2px;height:24px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">✅ Checkout & Isi Alamat</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">💳 Pilih Metode Bayar</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:#FDE8DF;border:2px solid var(--terra-light);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--terra-dark)">⬟ Pembayaran Berhasil?</div>
+        <div style="display:flex;gap:60px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:2px;height:20px;background:var(--green)"></div>
+            <div style="font-size:11px;color:var(--green);font-weight:700;margin-bottom:4px">BERHASIL</div>
+            <div style="background:var(--cream-dark);border:2px solid var(--border);padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;color:var(--brown)">📬 Order ke Seller</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:2px;height:20px;background:var(--terra)"></div>
+            <div style="font-size:11px;color:var(--terra);font-weight:700;margin-bottom:4px">GAGAL</div>
+            <div style="background:var(--cream-dark);border:2px solid var(--border);padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;color:var(--brown)">🔄 Coba Lagi</div>
+          </div>
+        </div>
+        <div style="width:2px;height:24px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">📦 Seller Siapkan Produk</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">🚚 Produk Dikirim</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">🏠 Produk Diterima</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--cream-dark);border:2px solid var(--border);padding:12px 32px;border-radius:8px;font-size:13px;font-weight:600;color:var(--brown)">⭐ Beri Ulasan</div>
+        <div style="width:2px;height:20px;background:var(--terra)"></div>
+        <div style="background:var(--green);color:var(--white);padding:12px 32px;border-radius:30px;font-size:13px;font-weight:700">✅ Selesai</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: IKLAN ===== -->
+<div class="page" id="page-iklan">
+  <div class="page-header">
+    <div class="page-header-badge">📣 Strategi Periklanan</div>
+    <h1>Strategi Marketing<br>& Periklanan</h1>
+    <p>Rencana marketing komprehensif untuk menjangkau konsumen dan membangun brand OlehNusa.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>📱 Digital Marketing</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kanal</th><th>Strategi</th><th>Budget (bulan)</th><th>Target</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Instagram</strong></td><td>Konten kuliner estetik, Reels produk, Story promosi harian, kolaborasi food blogger</td><td>Rp 5–10 juta</td><td>Brand awareness, engagement</td></tr>
+            <tr><td><strong>TikTok</strong></td><td>Video "Behind The Scenes" UMKM, resep dari produk, challenge #OlehNusa</td><td>Rp 5–8 juta</td><td>Viral reach, Gen Z acquisition</td></tr>
+            <tr><td><strong>Google Ads</strong></td><td>Search ads untuk keyword "oleh-oleh [kota]", Display Ads, Shopping Ads</td><td>Rp 8–15 juta</td><td>Intent traffic, konversi langsung</td></tr>
+            <tr><td><strong>Facebook/Meta Ads</strong></td><td>Carousel produk, retargeting pengunjung, lookalike audience dari pembeli</td><td>Rp 5–10 juta</td><td>Retargeting, segmen 30–50 tahun</td></tr>
+            <tr><td><strong>WhatsApp Blast</strong></td><td>Promosi ke member existing, pengumuman produk baru, voucher eksklusif</td><td>Rp 1–2 juta</td><td>Retensi konsumen existing</td></tr>
+            <tr><td><strong>Email Marketing</strong></td><td>Newsletter mingguan, abandoned cart reminder, rekomendasi personal</td><td>Rp 0.5–1 juta</td><td>Retention, upsell</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🤝 Influencer & Kemitraan</h2>
+      <div class="card-row">
+        <div class="mini-card"><div class="mini-card-icon">👨‍🍳</div><h4>Food Content Creator</h4><p>Kemitraan dengan food blogger/vlogger 10K–500K followers untuk review autentik produk.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🗺️</div><h4>Travel Influencer</h4><p>Kolaborasi dengan travel content creator yang sering mengulas kuliner daerah.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🏢</div><h4>Korporasi & Kantor</h4><p>Program B2B untuk hampers korporat, paket Lebaran, dan gift kantor berbasis produk lokal.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🏛️</div><h4>Dinas Pariwisata</h4><p>Kemitraan dengan Dinas Pariwisata daerah untuk mempromosikan produk unggulan daerah.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🎉 Program Promosi Dalam Platform</h2>
+      <ul>
+        <li><strong>Flash Sale Jumat:</strong> Diskon 20–50% produk pilihan setiap Jumat pukul 12.00–14.00</li>
+        <li><strong>Hari Raya Special:</strong> Promo besar Lebaran, Natal, Tahun Baru dengan tema Nusantara</li>
+        <li><strong>Ulang Tahun Daerah:</strong> Promo khusus produk daerah tertentu saat HUT provinsi/kota</li>
+        <li><strong>Referral Program:</strong> Bonus Rp 50.000 untuk setiap referral yang melakukan pembelian pertama</li>
+        <li><strong>OlehNusa Day:</strong> Hari belanja nasional OlehNusa setiap tanggal 2 Oktober (Hari Batik)</li>
+        <li><strong>Bundle & Hemat:</strong> Paket bundling produk dari satu daerah dengan harga lebih hemat</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: TOOLS ===== -->
+<div class="page" id="page-tools">
+  <div class="page-header">
+    <div class="page-header-badge">🛠️ Tools Operasional</div>
+    <h1>Tools yang Digunakan<br>OlehNusa</h1>
+    <p>Ekosistem tools untuk desain, pengembangan, operasional, dan manajemen bisnis OlehNusa.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🎨 Tools Desain & Konten</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-item-icon">🎨</div><div class="tech-item-name">Figma</div><div class="tech-item-role">UI/UX Design, Prototype</div></div>
+        <div class="tech-item"><div class="tech-item-icon">✏️</div><div class="tech-item-name">Adobe Illustrator</div><div class="tech-item-role">Logo, Ilustrasi, Branding</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📸</div><div class="tech-item-name">Lightroom</div><div class="tech-item-role">Editing foto produk</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🎬</div><div class="tech-item-name">CapCut / Premiere</div><div class="tech-item-role">Editing video konten</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🖼️</div><div class="tech-item-name">Canva Pro</div><div class="tech-item-role">Konten sosmed, banner promo</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🤖</div><div class="tech-item-name">Midjourney/DALL-E</div><div class="tech-item-role">AI image untuk banner & konten</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>💼 Tools Manajemen & Komunikasi</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-item-icon">📋</div><div class="tech-item-name">Notion</div><div class="tech-item-role">Dokumentasi, Wiki, OKR</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📌</div><div class="tech-item-name">Trello / Jira</div><div class="tech-item-role">Project Management, Sprint</div></div>
+        <div class="tech-item"><div class="tech-item-icon">💬</div><div class="tech-item-name">Slack</div><div class="tech-item-role">Internal Team Communication</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📊</div><div class="tech-item-name">Google Workspace</div><div class="tech-item-role">Email, Docs, Sheets, Drive</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📞</div><div class="tech-item-name">Zoom / Google Meet</div><div class="tech-item-role">Video Conference, Meeting</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📈</div><div class="tech-item-name">Metabase</div><div class="tech-item-role">Business Intelligence, Laporan</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>📊 Tools Marketing & Analytics</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-item-icon">📊</div><div class="tech-item-name">Google Analytics 4</div><div class="tech-item-role">Web & App Analytics</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔥</div><div class="tech-item-name">Hotjar</div><div class="tech-item-role">Heatmap, Session Recording</div></div>
+        <div class="tech-item"><div class="tech-item-icon">📧</div><div class="tech-item-name">Mailchimp</div><div class="tech-item-role">Email Marketing Automation</div></div>
+        <div class="tech-item"><div class="tech-item-icon">💚</div><div class="tech-item-name">WhatsApp Business API</div><div class="tech-item-role">Customer Messaging</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🤝</div><div class="tech-item-name">Freshdesk</div><div class="tech-item-role">Customer Support Ticketing</div></div>
+        <div class="tech-item"><div class="tech-item-icon">🔍</div><div class="tech-item-name">Ahrefs / SEMrush</div><div class="tech-item-role">SEO & Keyword Research</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: LEGALITAS ===== -->
+<div class="page" id="page-legalitas">
+  <div class="page-header">
+    <div class="page-header-badge">⚖️ Legalitas Usaha</div>
+    <h1>Legalitas &<br>Perizinan OlehNusa</h1>
+    <p>Dokumen legal dan perizinan yang wajib dipenuhi untuk operasional toko online OlehNusa secara sah.</p>
+  </div>
+  <div class="page-content">
+    <div class="card">
+      <h2>🏛️ Badan Hukum Usaha</h2>
+      <div class="highlight-box">
+        <strong>Rekomendasi:</strong> OlehNusa didirikan sebagai <strong>Perseroan Terbatas (PT)</strong> untuk memberikan kredibilitas tertinggi, kemudahan kemitraan dengan bank/investor, dan perlindungan hukum yang kuat. Alternatif awal: CV untuk skala lebih kecil.
+      </div>
+      <div class="card-row" style="margin-top:14px">
+        <div class="mini-card">
+          <div class="mini-card-icon">📄</div>
+          <h4>Akta Pendirian PT</h4>
+          <p>Dibuat oleh notaris, disahkan Kemenkumham, nama "PT OlehNusa Digital Nusantara" (contoh).</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🔢</div>
+          <h4>NPWP Badan</h4>
+          <p>Nomor Pokok Wajib Pajak untuk badan usaha — wajib untuk semua transaksi dan kerjasama B2B.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🏢</div>
+          <h4>NIB (OSS)</h4>
+          <p>Nomor Induk Berusaha via OSS (Online Single Submission) — ijin usaha terintegrasi. KBLI: 47911 (e-commerce).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📋 Perizinan Operasional E-Commerce</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Izin/Dokumen</th><th>Instansi</th><th>Keperluan</th></tr></thead>
+          <tbody>
+            <tr><td>NIB (e-commerce)</td><td>OSS/BKPM</td><td>Izin usaha platform digital perdagangan</td></tr>
+            <tr><td>SIUP / Izin Usaha Perdagangan</td><td>Dinas Perdagangan</td><td>Kegiatan perdagangan online</td></tr>
+            <tr><td>Sertifikasi TKDN (opsional)</td><td>Kemenperin</td><td>Jika mengajukan insentif produk lokal</td></tr>
+            <tr><td>Perlindungan Konsumen (UUPK)</td><td>Kemendag</td><td>Kepatuhan UU Perlindungan Konsumen No.8/1999</td></tr>
+            <tr><td>Kebijakan Privasi (UU PDP)</td><td>Kominfo</td><td>Kepatuhan UU Perlindungan Data Pribadi No.27/2022</td></tr>
+            <tr><td>Daftar PSE (Penyelenggara Sistem Elektronik)</td><td>Kominfo</td><td>Wajib untuk platform digital beroperasi di Indonesia</td></tr>
+            <tr><td>Rekening Escrow/Virtual Account</td><td>Bank mitra</td><td>Untuk menampung dana transaksi marketplace</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🍽️ Regulasi Produk Makanan</h2>
+      <p>Semua produk makanan yang dijual di OlehNusa wajib memenuhi ketentuan:</p>
+      <div class="card-row" style="margin-top:14px">
+        <div class="mini-card"><div class="mini-card-icon">🏛️</div><h4>BPOM / PIRT</h4><p>Produk wajib memiliki nomor izin BPOM (produksi ≥2 juta/th) atau PIRT dari Dinkes (skala rumah tangga).</p></div>
+        <div class="mini-card"><div class="mini-card-icon">🌙</div><h4>Sertifikat Halal MUI</h4><p>Produk wajib memiliki sertifikat halal dari BPJPH/MUI. OlehNusa memprioritaskan produk bersertifikat halal.</p></div>
+        <div class="mini-card"><div class="mini-card-icon">📦</div><h4>Standar Kemasan & Label</h4><p>Label wajib memuat nama produk, komposisi, tanggal kadaluarsa, berat bersih, nama produsen, dan no izin.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔒 Hak Kekayaan Intelektual</h2>
+      <ul>
+        <li><strong>Merek Dagang:</strong> Daftarkan merek "OlehNusa" dan logo ke DJKI (Direktorat Jenderal Kekayaan Intelektual) Kemenkumham</li>
+        <li><strong>Hak Cipta:</strong> Lindungi desain UI/UX, konten editorial, dan kode sumber aplikasi</li>
+        <li><strong>Domain:</strong> Amankan domain olehnusa.id, olehnusa.com, dan variasi penting lainnya</li>
+        <li><strong>Trademark internasional:</strong> Pertimbangkan pendaftaran di WIPO jika menarget pasar diaspora internasional</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: TIMELINE & BIAYA ===== -->
+<div class="page" id="page-timeline">
+  <div class="page-header">
+    <div class="page-header-badge">📅 Timeline & Biaya</div>
+    <h1>Timeline Pengerjaan<br>& Estimasi Biaya</h1>
+    <p>Rencana pengembangan bertahap dan estimasi investasi yang diperlukan untuk meluncurkan OlehNusa.</p>
+  </div>
+  <div class="page-content">
+
+    <div class="card">
+      <h2>📅 Timeline Pengerjaan (12 Bulan)</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Fase 1 — Bulan 1–2</div>
+          <h4>🎯 Riset, Perencanaan & Legal</h4>
+          <p>Riset pasar mendalam, pendirian badan hukum PT, pendaftaran merek, rekrutmen tim inti (CTO, designer, PM), setup infrastruktur cloud awal, finalisasi desain UI/UX di Figma.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Fase 2 — Bulan 3–5</div>
+          <h4>⚙️ Pengembangan MVP</h4>
+          <p>Development web app (Next.js), backend API, database, integrasi Midtrans & ekspedisi. Fitur inti: auth, catalog, keranjang, checkout, payment, order tracking. Testing internal.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Fase 3 — Bulan 6</div>
+          <h4>🧪 Beta Testing & Onboarding Seller</h4>
+          <p>Soft launch untuk beta tester terbatas, onboarding 20–30 UMKM mitra awal, perbaikan bug kritis, uji coba logistik, feedback gathering dari early adopters.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Fase 4 — Bulan 7</div>
+          <h4>🚀 Peluncuran Resmi (Web)</h4>
+          <p>Grand launching platform web olehnusa.id, kampanye marketing digital, press release, kemitraan influencer pertama, promo grand opening (gratis ongkir + voucher).</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Fase 5 — Bulan 8–10</div>
+          <h4>📱 Pengembangan Mobile App</h4>
+          <p>Development aplikasi mobile React Native (iOS & Android), fitur tambahan: loyalty program, notifikasi push, chat in-app, filter daerah lebih detail. Publish ke App Store & Play Store.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Fase 6 — Bulan 11–12</div>
+          <h4>📈 Optimasi & Skalasi</h4>
+          <p>Analisis performa, optimasi konversi, ekspansi UMKM mitra (target 100+ seller), launch program loyalty, fitur hampers builder, pertimbangan ekspansi ke Singapura/Malaysia (diaspora).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💰 Estimasi Biaya Pengembangan</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Komponen</th><th>Detail</th><th>Estimasi Biaya</th></tr></thead>
+          <tbody>
+            <tr><td>Legal & Perizinan</td><td>Pendirian PT, merek, SIUP, PSE, konsultan hukum</td><td>Rp 15–25 juta</td></tr>
+            <tr><td>UI/UX Design</td><td>Wireframe, prototype, design system Figma</td><td>Rp 20–40 juta</td></tr>
+            <tr><td>Pengembangan Web (Frontend)</td><td>Next.js, 5–8 bulan, 2 developer</td><td>Rp 60–120 juta</td></tr>
+            <tr><td>Pengembangan Backend</td><td>Node.js + PostgreSQL, microservices, API</td><td>Rp 80–150 juta</td></tr>
+            <tr><td>Pengembangan Mobile App</td><td>React Native iOS + Android, 3–4 bulan</td><td>Rp 60–100 juta</td></tr>
+            <tr><td>Infrastruktur Cloud (1 tahun)</td><td>AWS EC2, RDS, S3, CDN, Firebase</td><td>Rp 30–60 juta</td></tr>
+            <tr><td>Integrasi Third Party</td><td>Midtrans setup, ekspedisi API, Maps</td><td>Rp 5–15 juta</td></tr>
+            <tr><td>Branding & Konten</td><td>Logo, foto produk, video brand, copywriting</td><td>Rp 20–40 juta</td></tr>
+            <tr><td>Marketing Launch</td><td>Digital ads, influencer, PR, grand opening</td><td>Rp 50–100 juta</td></tr>
+            <tr><td>Operasional (6 bulan pertama)</td><td>Gaji tim, sewa kantor, peralatan, dll</td><td>Rp 100–200 juta</td></tr>
+            <tr><td>Cadangan & Kontingensi</td><td>Buffer 20% dari total biaya</td><td>Rp 90–170 juta</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cost-total">
+        <div>
+          <div class="cost-total-label">Total Estimasi Investasi Awal</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px">Termasuk biaya pengembangan, launch, dan operasional 6 bulan pertama</div>
+        </div>
+        <div class="cost-total-value">Rp 530 – 1.020 juta</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📊 Model Pendapatan OlehNusa</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Stream Pendapatan</th><th>Mekanisme</th><th>Proyeksi (Tahun 1)</th></tr></thead>
+          <tbody>
+            <tr><td>Komisi Penjualan</td><td>3–8% dari setiap transaksi (per kategori)</td><td>60% dari total revenue</td></tr>
+            <tr><td>Iklan Premium Seller</td><td>Biaya promosi produk di halaman utama/pencarian</td><td>20% dari total revenue</td></tr>
+            <tr><td>Langganan Seller Pro</td><td>Rp 99rb–299rb/bulan untuk fitur seller premium</td><td>10% dari total revenue</td></tr>
+            <tr><td>Jasa Pengemasan Hampers</td><td>Fee packaging dan kurasi untuk hampers custom</td><td>7% dari total revenue</td></tr>
+            <tr><td>Affiliate & Data Analytics</td><td>Laporan pasar untuk brand, insight konsumen (anonymized)</td><td>3% dari total revenue</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+  document.querySelector('.main').scrollTo(0, 0);
+}
+
+function showWireframe(id) {
+  document.querySelectorAll('.wireframe').forEach(w => w.classList.remove('active'));
+  document.querySelectorAll('.wf-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('wf-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
